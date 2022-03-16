@@ -16,17 +16,16 @@
             var todaysEmployees = new Employee[numberOfShiftWorkers];
 
             // use a rules engine pattern for each employee to see if they can be assigned as well once you have randomly selected them
-            for (int i = 0; i < numberOfShiftWorkers; i++)
+            for(int i = 0; i < numberOfShiftWorkers; i++)
             {
                 var employeeIndex = random.Next(0, repo.Count());
 
-                if (todaysEmployees.Contains(repo.ElementAt(employeeIndex)))
+                if (todaysEmployees.Contains(repo.ElementAt(employeeIndex)) || repo.ElementAt(employeeIndex).WorkedShiftYesterday)
                 {
                     i--;
                     continue;
                 }
-
-                var employee = repo.ElementAt(employeeIndex);
+                
                 employee.WorkedShiftYesterday = true;
                 employee.ShiftCount++;
 
@@ -37,5 +36,5 @@
         }
     }
 }
-//for the api call it then endpoint will return a list of employees that have not worked the previous day
-//we can use a dateTime for the lastshift instead of a bool and then at the end of the day they
+        //for the api call it then endpoint will return a list of employees that have not worked the previous day
+        //we can use a dateTime for the lastshift instead of a bool and then at the end of the day they

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Amigo.BAU.Application.Models;
+using Dapper;
 
 namespace Amigo.BAU.Repository.EmployeeRepository
 {
@@ -21,22 +22,22 @@ namespace Amigo.BAU.Repository.EmployeeRepository
             return _db.Query<EmployeeModel>("SELECT * FROM Employees");
         }
 
-        public Employee GetById(int id)
+        public EmployeeModel GetById(int id)
         {
-            return _db.Query<Employee>("SELECT * FROM Employees WHERE Id = @id", new { id }).FirstOrDefault();
+            return _db.Query<EmployeeModel>("SELECT * FROM Employees WHERE Id = @id", new { id }).FirstOrDefault();
         }
 
-        public void Add(Employee entity)
+        public void Add(EmployeeModel entity)
         {
-            _db.Execute("INSERT INTO Employees (Name, Email, DepartmentId) VALUES (@Name, @Email, @DepartmentId)", entity);
+            _db.Execute("INSERT INTO Employees (FirstName, LastName, Email, DepartmentId) VALUES (@Name, @Email, @DepartmentId)", entity);
         }
-
-        public void Update(Employee entity)
+        
+        public void Update(EmployeeModel entity, int id)
         {
             _db.Execute("UPDATE Employees SET Name = @Name, Email = @Email, DepartmentId = @DepartmentId WHERE Id = @Id", entity);
         }
 
-        public void Delete(Employee entity)
+        public void Delete(EmployeeModel entity)
         {
             _db.Execute("DELETE FROM Employees WHERE Id = @Id", entity);
         }
