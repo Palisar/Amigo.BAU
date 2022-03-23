@@ -21,10 +21,59 @@
             });
             employees.Add(new Employee
             {
-                Id = 1,
-                Name = "Paul Keating",
-                ShiftCount = 0,
+                Id = 3,
+                Name = "Wham Bam",
+                ShiftCount = 1,
+                WorkedShiftYesterday = true
+            });
+            employees.Add(new Employee
+            {
+                Id = 4,
+                Name = "Sham Spam",
+                ShiftCount = 2,
+                WorkedShiftYesterday = true
+            });
+            employees.Add(new Employee
+            {
+                Id = 5,
+                Name = "Dis Guy",
+                ShiftCount = 1,
                 WorkedShiftYesterday = false
+            });
+            employees.Add(new Employee
+            {
+                Id = 6,
+                Name = "Ber Meuda",
+                ShiftCount = 3,
+                WorkedShiftYesterday = true
+            });
+            employees.Add(new Employee
+            {
+                Id = 4,
+                Name = "Sham Spam",
+                ShiftCount = 2,
+                WorkedShiftYesterday = true
+            });
+            employees.Add(new Employee
+            {
+                Id = 4,
+                Name = "Sham Spam",
+                ShiftCount = 2,
+                WorkedShiftYesterday = true
+            });
+            employees.Add(new Employee
+            {
+                Id = 4,
+                Name = "Sham Spam",
+                ShiftCount = 2,
+                WorkedShiftYesterday = true
+            });
+            employees.Add(new Employee
+            {
+                Id = 4,
+                Name = "Sham Spam",
+                ShiftCount = 2,
+                WorkedShiftYesterday = true
             });
         }
 

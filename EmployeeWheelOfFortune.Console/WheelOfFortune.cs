@@ -1,4 +1,6 @@
-﻿namespace EmployeeWheelOfFortune.Console
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace EmployeeWheelOfFortune.Console
 {
     public class WheelOfFortune
     {
@@ -12,7 +14,18 @@
 
         public IEnumerable<Employee> WhoGoesToday(int numberOfShiftWorkers)
         {
-            var repo = _employeeRepository.GetAllEmployees();
+            // if day has not yet passed the just return the current list of employees
+            
+            //gets a list of workers who did work yesterday
+            var whoWorkedReset = _employeeRepository.GetAllEmployees().Where(x => x.WorkedShiftYesterday);
+            
+            //gets a list of workers who did not work
+            var repo = _employeeRepository.GetAllEmployees().Where(x => !x.WorkedShiftYesterday);
+
+            //check for anyone who might not have worked yet
+            var whosUp = repo.Where(x => x.ShiftCount < 2);
+
+            //creates output array 
             var todaysEmployees = new Employee[numberOfShiftWorkers];
 
             // use a rules engine pattern for each employee to see if they can be assigned as well once you have randomly selected them
@@ -25,10 +38,11 @@
                     i--;
                     continue;
                 }
+                var employee = repo.ElementAt(employeeIndex);
                 
                 employee.WorkedShiftYesterday = true;
                 employee.ShiftCount++;
-
+                _employeeRepository.UpdateEmployee(employee);
                 todaysEmployees[i] = employee;
             }
 
