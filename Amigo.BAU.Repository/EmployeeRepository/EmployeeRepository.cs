@@ -4,17 +4,18 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Amigo.BAU.Application.Models;
+using Amigo.BAU.Repository.Models;
 using Dapper;
+using System.Data.SQLite;
 
 namespace Amigo.BAU.Repository.EmployeeRepository
 {
     public class EmployeeRepository : IEmployeeRepository
     {
         private IDbConnection _db;
-        public EmployeeRepository(IDbConnection db)
+        public EmployeeRepository(string connectionString)
         {
-            _db = db;
+            _db = new SQLiteConnection(connectionString);
         }
 
         public IEnumerable<EmployeeModel> GetAll()
