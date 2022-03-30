@@ -1,26 +1,28 @@
 ﻿//using System.Runtime.CompilerServices;
-//using Amigo.BAU.Application.Interfaces;
-//using Amigo.BAU.Application.Models;
+//using Amigo.BAU.Repository.EmployeeRepository;
+//using Amigo.BAU.Repository.Models;
 
-//namespace Amigo.BAU.Application;
+//namespace Amigo.BAU.Outside;
 
 //public class SupportWheelOfFateService // make it a singleton service
 //{
+//    private readonly IEmployeeRepository _repository;
+
 //    public SupportWheelOfFateService(IEmployeeRepository repository)
 //    {
-        
+//        _repository = repository;
 //    }
 //    //this class can keep track of the time it was last called using DateTimeOffset.UTC.Now and check the current time vs the time it was last called,
 //    //if it was last called the day before then it will run, if not return the current list of employees
-//    public IEnumerable<EmployeeModel> WhoGoesToday(int numberOfShiftWorkers)
+//    public IEnumerable<Employee> WhoGoesToday(int numberOfShiftWorkers)
 //    {
 //        // if day has not yet passed the just return the current list of employees
 
 //        //gets a list of workers who did work yesterday
-//        var whoWorkedReset = _employeeRepository.GetAllEmployees().Where(x => x.WorkedShiftYesterday);
+//        var whoWorkedReset = _repository.GetAll().Where(x => x.WorkedShiftYesterday);
 
 //        //gets a list of workers who did not work
-//        var repo = _employeeRepository.GetAllEmployees().Where(x => !x.WorkedShiftYesterday);
+//        var repo = _repository.GetAllEmployees().Where(x => !x.WorkedShiftYesterday);
 
 //        //check for anyone who might not have worked yet
 //        var whosUp = repo.Where(x => x.ShiftCount < 2);
@@ -42,7 +44,7 @@
 
 //            employee.WorkedShiftYesterday = true;
 //            employee.ShiftCount++;
-//            _employeeRepository.UpdateEmployee(employee);
+//            _repository.UpdateEmployee(employee);
 //            todaysEmployees[i] = employee;
 //        }
 
