@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using Amigo.BAU.Application.Models;
+using Amigo.BAU.Repository.Models;
 using FluentAssertions;
 
 namespace Amigo.BAU.Repository.Tests
@@ -13,10 +13,10 @@ namespace Amigo.BAU.Repository.Tests
         {
             // Arrange
             var moq = new Mock<IEmployeeRepository>();
-            moq.Setup(m => m.GetAll()).Returns(new List<EmployeeModel>
+            moq.Setup(m => m.GetAll()).Returns(new List<Employee>
             {
-                new EmployeeModel {Id = 1, Name = "John"},
-                new EmployeeModel {Id = 2, Name = "Mary"}
+                new Employee {EmployeeId = 1, Name = "John"},
+                new Employee {EmployeeId = 2, Name = "Mary"}
             });
 
             var repo = moq.Object;
@@ -24,22 +24,17 @@ namespace Amigo.BAU.Repository.Tests
             var result = repo.GetAll();
             //Assert
             result.Should().NotBeEmpty();
-            result.Should(). BeEquivalentTo(new List<EmployeeModel>
+            result.Should(). BeEquivalentTo(new List<Employee>
             {
-               new EmployeeModel() {
-                   Id = 1,
-                   Name = "John",
-                   ShiftCount = 0,
-                   WorkedShiftYesterday = false
+               new Employee() {
+                   EmployeeId = 1,
+                   Name = "John"
                 },
-               new EmployeeModel()
+               new Employee()
                {
-                   Id = 2,
+                   EmployeeId = 2,
                    Name = "Mary",
-                   ShiftCount = 0,
-                   WorkedShiftYesterday = false
                }
-
             });
         }
 
@@ -47,12 +42,10 @@ namespace Amigo.BAU.Repository.Tests
         public void GetById_Retuns_EmplyeeModel()
         {
             var moq = new Mock<IEmployeeRepository>();
-            moq.Setup(m => m.GetById(1)).Returns(new EmployeeModel()
+            moq.Setup(m => m.GetById(1)).Returns(new Employee()
                 {
-                    Id = 1,
+                    EmployeeId = 1,
                     Name = "John",
-                    ShiftCount = 0,
-                    WorkedShiftYesterday = false
                 });
             var repo = moq.Object;
 
@@ -60,8 +53,5 @@ namespace Amigo.BAU.Repository.Tests
 
             result.Name.Should().Be("John");
         }
-
-        [Fact]
-        public void 
     }
 }
