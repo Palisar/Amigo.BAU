@@ -13,8 +13,4 @@
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.115.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AmigoBAU.Application\Amigo.BAU.Application.csproj" />
-  </ItemGroup>
-
 </Project>
