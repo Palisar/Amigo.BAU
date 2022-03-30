@@ -3,8 +3,8 @@ using Amigo.BAU.Repository.Models;
 
 namespace Amigo.BAU.Repository.EmployeeRepository
 {
-    public interface IEmployeeRepository : IRepository<EmployeeModel>
+    public interface IEmployeeRepository : IRepository<Employee>
     {
-        IEnumerable<EmployeeModel> GetAll();
+        IEnumerable<Employee> GetAll();
     }
 }

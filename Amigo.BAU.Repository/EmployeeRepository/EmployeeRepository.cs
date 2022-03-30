@@ -18,27 +18,27 @@ namespace Amigo.BAU.Repository.EmployeeRepository
             _db = new SQLiteConnection(connectionString);
         }
 
-        public IEnumerable<EmployeeModel> GetAll()
+        public IEnumerable<Employee> GetAll()
         {
-            return _db.Query<EmployeeModel>("SELECT * FROM Employees");
+            return _db.Query<Employee>("SELECT * FROM Employees");
         }
 
-        public EmployeeModel GetById(int id)
+        public Employee GetById(int id)
         {
-            return _db.Query<EmployeeModel>("SELECT * FROM Employees WHERE Id = @id", new { id }).FirstOrDefault();
+            return _db.Query<Employee>("SELECT * FROM Employees WHERE Id = @id", new { id }).FirstOrDefault();
         }
 
-        public void Add(EmployeeModel entity)
+        public void Add(Employee entity)
         {
             _db.Execute("INSERT INTO Employees (FirstName, LastName, Email, DepartmentId) VALUES (@Name, @Email, @DepartmentId)", entity);
         }
         
-        public void Update(EmployeeModel entity, int id)
+        public void Update(Employee entity, int id)
         {
             _db.Execute("UPDATE Employees SET Name = @Name, Email = @Email, DepartmentId = @DepartmentId WHERE Id = @Id", entity);
         }
 
-        public void Delete(EmployeeModel entity)
+        public void Delete(Employee entity)
         {
             _db.Execute("DELETE FROM Employees WHERE Id = @Id", entity);
         }
