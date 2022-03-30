@@ -2,10 +2,10 @@
 {
     public interface IEmployeeRepository
     {
-        void AddEmployee(Employee employee);
-        bool DeleteEmployee(int id);
+        Task AddEmployee(Employee employee);
+        void DeleteEmployee(int id);
         List<Employee> GetAllEmployees();
         Employee GetEmployeeById(int id);
-        bool UpdateEmployee(Employee employee);
+        Task UpdateEmployee(Employee employee);
     }
 }

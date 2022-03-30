@@ -9,77 +9,86 @@
             {
                 Id = 1,
                 Name = "Paul Keating",
-                ShiftCount = 0,
-                WorkedShiftYesterday = false
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-6).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-1).Date,
+                ShiftCount = 2,
+
             });
             employees.Add(new Employee
             {
                 Id = 2,
                 Name = "Ken Dunne",
-                ShiftCount = 0,
-                WorkedShiftYesterday = false,
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-1).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-1).Date,
+                ShiftCount = 1,
+
             });
             employees.Add(new Employee
             {
                 Id = 3,
                 Name = "Wham Bam",
-                ShiftCount = 1,
-                WorkedShiftYesterday = true
+                ShiftCount = 0,
             });
             employees.Add(new Employee
             {
                 Id = 4,
                 Name = "Sham Spam",
-                ShiftCount = 2,
-                WorkedShiftYesterday = true
+                ShiftCount = 0
+
             });
             employees.Add(new Employee
             {
                 Id = 5,
                 Name = "Dis Guy",
-                ShiftCount = 1,
-                WorkedShiftYesterday = false
+                ShiftCount = 3,
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-9).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-2).Date,
             });
             employees.Add(new Employee
             {
                 Id = 6,
                 Name = "Ber Meuda",
-                ShiftCount = 3,
-                WorkedShiftYesterday = true
+                ShiftCount = 1,
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-4).Date,
             });
             employees.Add(new Employee
             {
                 Id = 4,
-                Name = "Sham Spam",
-                ShiftCount = 2,
-                WorkedShiftYesterday = true
+                Name = "John Marney",
+                ShiftCount = 1,
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-6).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-1).Date,
             });
-            employees.Add(new Employee
-            {
-                Id = 4,
-                Name = "Sham Spam",
-                ShiftCount = 2,
-                WorkedShiftYesterday = true
-            });
-            employees.Add(new Employee
-            {
-                Id = 4,
-                Name = "Sham Spam",
-                ShiftCount = 2,
-                WorkedShiftYesterday = true
-            });
-            employees.Add(new Employee
-            {
-                Id = 4,
-                Name = "Sham Spam",
-                ShiftCount = 2,
-                WorkedShiftYesterday = true
-            });
+            //employees.Add(new Employee
+            //{
+            //    Id = 4,
+            //    Name = "Sham Spam",
+            //    ShiftCount = 2,
+            //    FirstShift = DateTimeOffset.UtcNow.AddDays(-6).Date,
+            //    LastShift = DateTimeOffset.UtcNow.AddDays(-1).Date,
+            //});
+            //employees.Add(new Employee
+            //{
+            //    Id = 4,
+            //    Name = "Sham Spam",
+            //    ShiftCount = 2,
+            //    FirstShift = DateTimeOffset.UtcNow.AddDays(-6).Date,
+            //    LastShift = DateTimeOffset.UtcNow.AddDays(-1).Date,
+            //});
+            //employees.Add(new Employee
+            //{
+            //    Id = 4,
+            //    Name = "Sham Spam",
+            //    ShiftCount = 2,
+            //    FirstShift = DateTimeOffset.UtcNow.AddDays(-6).Date,
+            //    LastShift = DateTimeOffset.UtcNow.AddDays(-1).Date,
+            //});
         }
 
         public List<Employee> GetAllEmployees()
         {
             return employees;
+            
         }
 
         public Employee GetEmployeeById(int id)
@@ -87,26 +96,27 @@
             return employees.FirstOrDefault(e => e.Id == id);
         }
 
-        public void AddEmployee(Employee employee)
+        public async Task AddEmployee(Employee employee)
         {
             employee.Id = employees.Max(e => e.Id) + 1;
             employees.Add(employee);
         }
 
-        public bool UpdateEmployee(Employee employee)
+        public async Task UpdateEmployee(Employee employee)
         {
-            var employeeToUpdate = GetEmployeeById(employee.Id);
-            employeeToUpdate.Name = employee.Name;
-            employeeToUpdate.ShiftCount = employee.ShiftCount;
-            employeeToUpdate.WorkedShiftYesterday = employee.WorkedShiftYesterday;
-            return true;
+            if (employee is not null)
+            {
+                var employeeToUpdate = GetEmployeeById(employee.Id);
+                employeeToUpdate.ShiftCount = employee.ShiftCount;
+                employeeToUpdate.FirstShift = employee.FirstShift;
+                employeeToUpdate.LastShift = employee.LastShift;
+            }
         }
 
-        public bool DeleteEmployee(int id)
+        public void DeleteEmployee(int id)
         {
             var employeeToDelete = GetEmployeeById(id);
             employees.Remove(employeeToDelete);
-            return true;
         }
     }
 }
