@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace Amigo.BAU.Repository.Models
 {
-    class Engineer
+    public class Engineer
     {
-        [Key]
-        [Required]
-        public Guid EngineerId { get; init; }
+        public int EngineerId { get; set; }
         public DateTimeOffset FirstShift { get; set; }
         public DateTimeOffset LastShift  { get; set; }
         public int ShiftCount { get; set; }

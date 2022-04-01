@@ -1,14 +1,14 @@
 ﻿//using System.Runtime.CompilerServices;
-//using Amigo.BAU.Repository.EmployeeRepository;
+//using Amigo.BAU.Repository.EngineerRepository;
 //using Amigo.BAU.Repository.Models;
 
 //namespace Amigo.BAU.Outside;
 
 //public class SupportWheelOfFateService // make it a singleton service
 //{
-//    private readonly IEmployeeRepository _repository;
+//    private readonly IEngineerRepository _repository;
 
-//    public SupportWheelOfFateService(IEmployeeRepository repository)
+//    public SupportWheelOfFateService(IEngineerRepository repository)
 //    {
 //        _repository = repository;
 //    }

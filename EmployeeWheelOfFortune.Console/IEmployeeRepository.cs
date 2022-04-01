@@ -2,7 +2,7 @@
 {
     public interface IEmployeeRepository
     {
-        Task AddEmployee(Employee employee);
+        void AddEmployee(Employee employee);
         void DeleteEmployee(int id);
         List<Employee> GetAllEmployees();
         Employee GetEmployeeById(int id);

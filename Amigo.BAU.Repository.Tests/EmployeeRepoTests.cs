@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using Amigo.BAU.Repository.Models;
 using FluentAssertions;
 
 namespace Amigo.BAU.Repository.Tests
@@ -9,49 +9,28 @@ namespace Amigo.BAU.Repository.Tests
     public class EmployeeRepoTests
     {
         [Fact]
-        public void GetByAll_Returns_IEnumOfEmployee()
+        public void Add_Returns_Employee()
         {
             // Arrange
-            var moq = new Mock<IEmployeeRepository>();
-            moq.Setup(m => m.GetAll()).Returns(new List<Employee>
+            var employee = new Employee
             {
-                new Employee {EmployeeId = 1, Name = "John"},
-                new Employee {EmployeeId = 2, Name = "Mary"}
-            });
+                EmployeeId = 0,
+                Name = "Paul Keating",
+                Email = "palisar@hotmail.co.uk"
+            };
 
-            var repo = moq.Object;
+            var repo = new EmployeeRepository.EmployeeRepository();
             //Act
-            var result = repo.GetAll();
+            var expected = repo.Add(employee);
+
             //Assert
-            result.Should().NotBeEmpty();
-            result.Should(). BeEquivalentTo(new List<Employee>
-            {
-               new Employee() {
-                   EmployeeId = 1,
-                   Name = "John"
-                },
-               new Employee()
-               {
-                   EmployeeId = 2,
-                   Name = "Mary",
-               }
-            });
+            expected.Should().Be(employee);
         }
 
         [Fact]
         public void GetById_Retuns_EmplyeeModel()
         {
-            var moq = new Mock<IEmployeeRepository>();
-            moq.Setup(m => m.GetById(1)).Returns(new Employee()
-                {
-                    EmployeeId = 1,
-                    Name = "John",
-                });
-            var repo = moq.Object;
-
-            var result = repo.GetById(1);
-
-            result.Name.Should().Be("John");
+            
         }
     }
 }

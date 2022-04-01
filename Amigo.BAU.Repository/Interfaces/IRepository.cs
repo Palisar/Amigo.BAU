@@ -1,10 +1,10 @@
 ﻿namespace Amigo.BAU.Repository.Interfaces
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<TEntity> where TEntity : class
     {
-        T GetById(int id);
-        void Add(T entity);
-        void Update(T entity, int id);
+        TEntity GetById(int id);
+        TEntity Add(TEntity entity);
+        void Update(TEntity entity, int id);
         void Delete(int id);
     }
 }

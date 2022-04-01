@@ -1,6 +1,4 @@
 ﻿using Amigo.BAU.Application.Interfaces;
-using System.Timers;
-using Timer = System.Timers.Timer;
 
 namespace Amigo.BAU.Application.Services
 {
@@ -10,7 +8,6 @@ namespace Amigo.BAU.Application.Services
         public DateTimeProvider(DateTimeOffset date)
         {
             TodaysDate = date.UtcDateTime.Date;
-            
         }
         private void NextDay()
         {
@@ -20,7 +17,7 @@ namespace Amigo.BAU.Application.Services
         {
             if (DateTimeOffset.UtcNow.Date > TodaysDate.Date)
                 NextDay();
-            
+
             return TodaysDate.Date;
         }
     }

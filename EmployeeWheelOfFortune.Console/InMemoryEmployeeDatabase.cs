@@ -53,11 +53,11 @@
             });
             employees.Add(new Employee
             {
-                Id = 4,
+                Id = 7,
                 Name = "John Marney",
                 ShiftCount = 1,
                 FirstShift = DateTimeOffset.UtcNow.AddDays(-6).Date,
-                LastShift = DateTimeOffset.UtcNow.AddDays(-1).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-2).Date,
             });
             //employees.Add(new Employee
             //{
@@ -96,7 +96,7 @@
             return employees.FirstOrDefault(e => e.Id == id);
         }
 
-        public async Task AddEmployee(Employee employee)
+        public void AddEmployee(Employee employee)
         {
             employee.Id = employees.Max(e => e.Id) + 1;
             employees.Add(employee);
