@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Amigo.BAU.Repository.Models;
 using Dapper;
-using System.Data.SQLite;
 
 namespace Amigo.BAU.Repository.EmployeeRepository
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        private IDbConnection _db;
-        public EmployeeRepository(string connectionString)
+        private readonly IDbConnection _db;
+
+        private readonly string _connectionString =
+            "Data Source=DESKTOP-PALISAR\\SQLEXPRESS;Initial Catalog=AmigoDb;Trusted_Connection=True;";
+        public EmployeeRepository()
         {
-            _db = new SQLiteConnection(connectionString);
+            _db = new SqlConnection(_connectionString);
         }
 
         public IEnumerable<Employee> GetAll()
@@ -25,27 +28,29 @@ namespace Amigo.BAU.Repository.EmployeeRepository
 
         public Employee GetById(int id)
         {
-            return _db.Query<Employee>("SELECT * FROM Employees WHERE Id = @id", new { id }).FirstOrDefault();
+            return _db.QueryFirstOrDefault<Employee>("SELECT * FROM Employees WHERE EmployeeId = @id", new { id });
         }
 
-        public void Add(Employee entity)
+        public Employee Add(Employee entity)
         {
-            _db.Execute("INSERT INTO Employees (FirstName, LastName, Email, DepartmentId) VALUES (@Name, @Email, @DepartmentId)", entity);
+            _db.Execute("INSERT INTO Employees ( Name, Email) VALUES ( @Name, @Email)", entity);
+            return entity;
         }
-        
+
         public void Update(Employee entity, int id)
         {
-            _db.Execute("UPDATE Employees SET Name = @Name, Email = @Email, DepartmentId = @DepartmentId WHERE Id = @Id", entity);
+            _db.Execute("UPDATE Employees SET Name = @Name, Email = @Email WHERE EmployeeId = @id", entity);
         }
 
         public void Delete(Employee entity)
         {
-            _db.Execute("DELETE FROM Employees WHERE Id = @Id", entity);
+            _db.Execute("DELETE FROM Employees WHERE EmployeeId = @EmployeeId", entity);
         }
 
         public void Delete(int id)
         {
-            _db.Execute("DELETE FROM Employees WHERE Id = @id", new { id });
+            _db.Execute("DELETE FROM Employees WHERE EmployeeId = @id", new { id });
         }
+
     }
 }
