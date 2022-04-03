@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Security.Cryptography.X509Certificates;
-
-namespace EmployeeWheelOfFortune.Console
+﻿namespace EmployeeWheelOfFortune.Console
 {
     public class WheelOfFortune
     {
@@ -30,12 +27,12 @@ namespace EmployeeWheelOfFortune.Console
 
             //check for anyone who might not have worked yet
             var whosUp = repo.Where(x => x.ShiftCount < 2);
-            
+
             //creates output array 
             var todaysEmployees = new Employee[numberOfShiftWorkers];
 
             // use a rules engine pattern for each employee to see if they can be assigned as well once you have randomly selected them
-            for(int i = 0; i < numberOfShiftWorkers; i++)
+            for (int i = 0; i < numberOfShiftWorkers; i++)
             {
                 var employeeIndex = random.Next(0, whosUp.Count());
 
@@ -44,7 +41,7 @@ namespace EmployeeWheelOfFortune.Console
                     i--;
                     continue;
                 }
-                
+
                 var employee = whosUp.ElementAt(employeeIndex);
 
                 if (employee.FirstShift is null)
@@ -77,5 +74,5 @@ namespace EmployeeWheelOfFortune.Console
         }
     }
 }
-        //for the api call it then endpoint will return a list of employees that have not worked the previous day
-        //we can use a dateTime for the lastshift instead of a bool and then at the end of the day they
+//for the api call it then endpoint will return a list of employees that have not worked the previous day
+//we can use a dateTime for the lastshift instead of a bool and then at the end of the day they

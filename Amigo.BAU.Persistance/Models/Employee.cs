@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Amigo.BAU.Persistance.Models
+﻿namespace Amigo.BAU.Persistance.Models
 {
     public class Employee
     {

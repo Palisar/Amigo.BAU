@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using Amigo.BAU.Data.Models;
-using FluentAssertions;
+﻿using FluentAssertions;
+using System;
+using Amigo.BAU.Persistance.Models;
 
 namespace Amigo.BAU.Repository.Tests
 {

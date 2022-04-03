@@ -1,8 +1,5 @@
-﻿ using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using Amigo.BAU.
+﻿using Amigo.BAU.Persistance.Models;
+using Amigo.BAU.Repository.EmployeeRepository;
 using FluentAssertions;
 
 namespace Amigo.BAU.Repository.Tests
@@ -31,7 +28,7 @@ namespace Amigo.BAU.Repository.Tests
         [Fact]
         public void GetById_Retuns_EmplyeeModel()
         {
-            
+
         }
     }
 }

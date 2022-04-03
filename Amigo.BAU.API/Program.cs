@@ -1,10 +1,9 @@
-using System.Data;
-using System.Data.SqlClient;
 using Amigo.BAU.Application.Interfaces;
 using Amigo.BAU.Application.Services;
 using Amigo.BAU.Repository.EmployeeRepository;
 using Amigo.BAU.Repository.EngineerRepository;
-using Amigo.BAU.Repository.Interfaces;
+using System.Data;
+using System.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +16,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton(typeof(IDateTimeProvider), typeof(DateTimeProvider));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
 builder.Services.AddTransient<IDbConnection>(p => new SqlConnection(connectionString));
 
 builder.Services.AddScoped(typeof(IEngineerRepository), typeof(EngineerRepository));

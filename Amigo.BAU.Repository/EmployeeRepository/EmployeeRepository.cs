@@ -1,7 +1,6 @@
-﻿using System.Data;
-using System.Data.SqlClient;
-using Amigo.BAU.Persistance.Models;
+﻿using Amigo.BAU.Persistance.Models;
 using Dapper;
+using System.Data;
 
 namespace Amigo.BAU.Repository.EmployeeRepository
 {

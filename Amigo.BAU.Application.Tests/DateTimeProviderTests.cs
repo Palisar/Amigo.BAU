@@ -1,5 +1,5 @@
-﻿using System;
-using Amigo.BAU.Application.Services;
+﻿using Amigo.BAU.Application.Services;
+using System;
 
 namespace Amigo.BAU.Application.Tests
 {
@@ -13,7 +13,7 @@ namespace Amigo.BAU.Application.Tests
             var result = sut.TodaysDate.Date;
             result.Should().Be(DateTimeOffset.UtcNow.Date);
         }
-        
+
         [Fact]
         public void WhenDayChanges_Then_DayUpdatesReturnsNow()
         {
@@ -33,10 +33,10 @@ namespace Amigo.BAU.Application.Tests
         {
             // Arrange
             DateTimeProvider sut = new DateTimeProvider();
-            
+
             //Act
             var result = sut.GetDay();
-            
+
             //Assert
             result.Should().Be(DateTimeOffset.UtcNow.Date);
         }

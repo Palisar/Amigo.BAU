@@ -1,7 +1,7 @@
-﻿using System.Data;
-using Dapper;
-using Amigo.BAU.Persistance.Models;
+﻿using Amigo.BAU.Persistance.Models;
 using Amigo.BAU.Persistance.QueryModels;
+using Dapper;
+using System.Data;
 
 
 namespace Amigo.BAU.Repository.EngineerRepository
@@ -13,7 +13,7 @@ namespace Amigo.BAU.Repository.EngineerRepository
         {
             _db = db;
         }
-                
+
         public IEnumerable<Engineer> GetAll()
         {
             return _db.Query<Engineer>("SELECT * FROM Engineers");
