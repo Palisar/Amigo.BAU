@@ -5,9 +5,9 @@ namespace Amigo.BAU.Application.Services
     public class DateTimeProvider : IDateTimeProvider
     {
         public DateTimeOffset TodaysDate { get; private set; }
-        public DateTimeProvider(DateTimeOffset date)
+        public DateTimeProvider()
         {
-            TodaysDate = date.UtcDateTime.Date;
+            TodaysDate = DateTimeOffset.UtcNow.Date;
         }
         private void NextDay()
         {
