@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Amigo.BAU.Data.Models
+namespace Amigo.BAU.Persistance.Models
 {
     public class Engineer
     {

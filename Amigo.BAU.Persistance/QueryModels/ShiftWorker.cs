@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Amigo.BAU.Repository.ViewModels
+﻿namespace Amigo.BAU.Persistance.QueryModels
 {
-    public class EngineerViewModel
+    public class ShiftWorker
     {
         public string Name { get; set; }
         public int EngineerId { get; set; }
