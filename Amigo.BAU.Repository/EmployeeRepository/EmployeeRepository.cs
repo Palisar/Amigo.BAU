@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amigo.BAU.Data.Models;
+using Amigo.BAU.Persistance.Models;
 using Dapper;
 
 namespace Amigo.BAU.Repository.EmployeeRepository
@@ -13,12 +8,9 @@ namespace Amigo.BAU.Repository.EmployeeRepository
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly IDbConnection _db;
-
-        private readonly string _connectionString =
-            "Data Source=DESKTOP-PALISAR\\SQLEXPRESS;Initial Catalog=AmigoDb;Trusted_Connection=True;";
-        public EmployeeRepository()
+        public EmployeeRepository(IDbConnection db)
         {
-            _db = new SqlConnection(_connectionString);
+            _db = db;
         }
 
         public IEnumerable<Employee> GetAll()

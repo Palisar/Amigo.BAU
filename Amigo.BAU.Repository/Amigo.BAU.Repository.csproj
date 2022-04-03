@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Amigo.BAU.Core\Amigo.BAU.Data.csproj" />
+    <ProjectReference Include="..\Amigo.BAU.Persistance\Amigo.BAU.Persistance.csproj" />
   </ItemGroup>
 
 </Project>

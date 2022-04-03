@@ -9,7 +9,7 @@ namespace Amigo.BAU.Application.Tests
         [Fact]
         public void WhenCalenderIsCreated_DateShouldBeToday()
         {
-            DateTimeProvider sut = new DateTimeProvider(_date);
+            DateTimeProvider sut = new DateTimeProvider();
             var result = sut.TodaysDate.Date;
             result.Should().Be(DateTimeOffset.UtcNow.Date);
         }
@@ -19,7 +19,7 @@ namespace Amigo.BAU.Application.Tests
         {
             // Arrange
             _date = DateTimeOffset.MinValue;
-            DateTimeProvider sut = new DateTimeProvider(_date);
+            DateTimeProvider sut = new DateTimeProvider();
 
             //Act
             var result = sut.GetDay();
@@ -32,7 +32,7 @@ namespace Amigo.BAU.Application.Tests
         public void IfDayDoesNotChange_Then_ReturnNow()
         {
             // Arrange
-            DateTimeProvider sut = new DateTimeProvider(_date);
+            DateTimeProvider sut = new DateTimeProvider();
             
             //Act
             var result = sut.GetDay();

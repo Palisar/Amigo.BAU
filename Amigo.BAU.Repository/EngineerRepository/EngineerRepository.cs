@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amigo.BAU.Data.Models;
+﻿using System.Data;
 using Dapper;
-using System.Data.SqlClient;
-using Amigo.BAU.Repository.ViewModels;
+using Amigo.BAU.Persistance.Models;
+using Amigo.BAU.Persistance.QueryModels;
+
 
 namespace Amigo.BAU.Repository.EngineerRepository
 {
@@ -24,9 +19,9 @@ namespace Amigo.BAU.Repository.EngineerRepository
             return _db.Query<Engineer>("SELECT * FROM Engineers");
         }
 
-        public IEnumerable<EngineerViewModel> GetNamedEngineers()
+        public IEnumerable<ShiftWorker> GetNamedEngineers()
         {
-            return _db.Query<EngineerViewModel>("SELECT * FROM Engineers INNER JOIN Employees ON Engineers.EmployeeId = Employees.EmployeeId;");
+            return _db.Query<ShiftWorker>("SELECT * FROM Engineers INNER JOIN Employees ON Engineers.EmployeeId = Employees.EmployeeId;");
         }
 
         public Engineer GetById(int id)

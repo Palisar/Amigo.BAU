@@ -1,7 +1,8 @@
-﻿using Amigo.BAU.Data.Models;
+﻿using Amigo.BAU.Persistance.Models;
+using Amigo.BAU.Persistance.QueryModels;
 using Amigo.BAU.Repository.EmployeeRepository;
 using Amigo.BAU.Repository.EngineerRepository;
-using Amigo.BAU.Repository.ViewModels;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace Amigo.BAU.API.Controllers
@@ -33,7 +34,7 @@ namespace Amigo.BAU.API.Controllers
 
         [HttpGet]
         [Route("GetNamed")]
-        public ActionResult<IEnumerable<EngineerViewModel>> GetNamedEngineers()
+        public ActionResult<IEnumerable<ShiftWorker>> GetNamedEngineers()
         {
             var engineers = _engineerRepository.GetNamedEngineers();
             if (engineers is null)
