@@ -1,4 +1,10 @@
 using System.Data;
+using System.Data.SqlClient;
+using Amigo.BAU.Application.Interfaces;
+using Amigo.BAU.Application.Services;
+using Amigo.BAU.Repository.EmployeeRepository;
+using Amigo.BAU.Repository.EngineerRepository;
+using Amigo.BAU.Repository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +14,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSingleton(typeof(IDateTimeProvider), typeof(DateTimeProvider));
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var sqlConnection = new SqlConnection(connectionString);
+builder.Services.AddSingleton(typeof(IDbConnection), sqlConnection);
+builder.Services.AddScoped(typeof(IEngineerRepository), typeof(EngineerRepository));
+builder.Services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
