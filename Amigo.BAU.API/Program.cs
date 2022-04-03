@@ -17,8 +17,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton(typeof(IDateTimeProvider), typeof(DateTimeProvider));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-var sqlConnection = new SqlConnection(connectionString);
-builder.Services.AddSingleton(typeof(IDbConnection), sqlConnection);
+
+builder.Services.AddTransient<IDbConnection>(p => new SqlConnection(connectionString));
+
 builder.Services.AddScoped(typeof(IEngineerRepository), typeof(EngineerRepository));
 builder.Services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
 var app = builder.Build();
