@@ -1,6 +1,6 @@
 ﻿
 using Amigo.BAU.Repository.Interfaces;
-using Amigo.BAU.Repository.Models;
+using Amigo.BAU.Data.Models;
 
 namespace Amigo.BAU.Repository.EmployeeRepository
 {

@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Amigo.BAU.Repository.Models;
+using Amigo.BAU.Data.Models;
 using Dapper;
 
 namespace Amigo.BAU.Repository.EmployeeRepository
