@@ -22,7 +22,7 @@
 //        var whoWorkedReset = _repository.GetAll().Where(x => x.WorkedShiftYesterday);
 
 //        //gets a list of workers who did not work
-//        var repo = _repository.GetAllEmployees().Where(x => !x.WorkedShiftYesterday);
+//        var repo = _repository.GetAll().Where(x => !x.WorkedShiftYesterday);
 
 //        //check for anyone who might not have worked yet
 //        var whosUp = repo.Where(x => x.ShiftCount < 2);
