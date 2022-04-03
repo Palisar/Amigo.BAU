@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using Amigo.BAU.Data.Models;
+using Amigo.BAU.
 using FluentAssertions;
 
 namespace Amigo.BAU.Repository.Tests

@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amigo.BAU.Repository", "Ami
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amigo.BAU.Repository.Tests", "Amigo.BAU.Repository.Tests\Amigo.BAU.Repository.Tests.csproj", "{FBD54581-CF49-4969-A6D0-7B0D88FC2D4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amigo.BAU.Data", "Amigo.BAU.Core\Amigo.BAU.Data.csproj", "{3472BB55-4C54-40FE-A731-62F739CEAFB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amigo.BAU.Persistance", "Amigo.BAU.Persistance\Amigo.BAU.Persistance.csproj", "{3472BB55-4C54-40FE-A731-62F739CEAFB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
