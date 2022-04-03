@@ -2,7 +2,7 @@
 using Amigo.BAU.Persistance.QueryModels;
 using Amigo.BAU.Repository.EmployeeRepository;
 using Amigo.BAU.Repository.EngineerRepository;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Amigo.BAU.API.Controllers
@@ -31,7 +31,7 @@ namespace Amigo.BAU.API.Controllers
 
             return Ok(engineers);
         }
-
+        [Authorize]
         [HttpGet]
         [Route("GetNamed")]
         public ActionResult<IEnumerable<ShiftWorker>> GetNamedEngineers()
