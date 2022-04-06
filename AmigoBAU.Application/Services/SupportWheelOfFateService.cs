@@ -18,6 +18,7 @@ namespace Amigo.BAU.Application.Services
         private readonly IEngineerRepository _repository;
         private IEnumerable<ShiftWorker> todaysStaff;
 
+        //TODO: Add singleton service to keep track of the current days list of support staff
         public SupportWheelOfFateService(IDateTimeProvider date, IEngineerRepository repository)
         {
             _date = date;
