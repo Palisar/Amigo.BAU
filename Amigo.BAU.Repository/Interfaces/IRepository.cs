@@ -4,7 +4,7 @@
     {
         TEntity GetById(int id);
         TEntity Add(TEntity entity);
-        void Update(TEntity entity, int id);
+        Task Update(TEntity entity, int id);
         void Delete(int id);
     }
 }

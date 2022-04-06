@@ -1,6 +1,7 @@
 ﻿using Amigo.BAU.Persistance.Models;
 using Dapper;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Amigo.BAU.Repository.EmployeeRepository
 {
@@ -24,13 +25,14 @@ namespace Amigo.BAU.Repository.EmployeeRepository
 
         public Employee Add(Employee entity)
         {
-            _db.Execute("INSERT INTO Employees ( Name, Email) VALUES ( @Name, @Email)", entity);
+            _db.Execute("INSERT INTO Employees ( EmployeeId, Name, Email) VALUES (@EmployeeId, @Name, @Email)", entity);
             return entity;
         }
 
-        public void Update(Employee entity, int id)
+        public async Task Update(Employee entity, int id)
         {
-            _db.Execute("UPDATE Employees SET Name = @Name, Email = @Email WHERE EmployeeId = @id", entity);
+            var task =  _db.ExecuteAsync("UPDATE Employees SET Name = @Name, Email = @Email WHERE EmployeeId = @id", entity);
+            
         }
 
         public void Delete(Employee entity)
