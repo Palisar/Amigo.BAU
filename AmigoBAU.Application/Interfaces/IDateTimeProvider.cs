@@ -3,5 +3,6 @@
     public interface IDateTimeProvider
     {
         public DateTimeOffset GetDay();
+        bool DayChanged { get; }
     }
 }

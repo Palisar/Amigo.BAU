@@ -14,7 +14,7 @@ namespace Amigo.BAU.Application.Services
     {
         private static Random random = new();
         private readonly IDateTimeProvider _date;
-        private DateTimeOffset today;
+        
         private readonly IEngineerRepository _repository;
         private IEnumerable<ShiftWorker> todaysStaff;
 
@@ -25,12 +25,12 @@ namespace Amigo.BAU.Application.Services
         }
         public IEnumerable<ShiftWorker> WhoGoesToday(int numberOfShiftWorkers)
         {
-            if (today.Date == _date.GetDay())
+            _date.GetDay();
+            if (!_date.DayChanged)
             {
-                return todaysStaff;
+                return todaysStaff;  //TODO : Keep working on day changed to make sure time logic works correctly 
             }
-            today = _date.GetDay();
-
+            
             // if day has not yet passed the just return the current list of employees
             var engineers = _repository.GetNamedEngineers();
             //gets a list of workers who did work yesterday
