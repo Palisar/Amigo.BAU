@@ -18,7 +18,7 @@ namespace Amigo.BAU.API.Controllers
         [HttpPost]
         public IActionResult AddEmployee(Employee employee)
         {
-            employee.EmployeeId = _repo.GetAll().Select(x => x.EmployeeId).Max() + 1;
+            employee.EmployeeId = _repo.GetAll().Count() == 0 ? 1 : _repo.GetAll().Select(x => x.EmployeeId).Max() + 1 ;
             _repo.Add(employee);
             
             return Ok(employee);

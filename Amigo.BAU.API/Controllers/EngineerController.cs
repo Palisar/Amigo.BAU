@@ -12,12 +12,10 @@ namespace Amigo.BAU.API.Controllers
     public class EngineerController : ControllerBase
     {
         private readonly IEngineerRepository _engineerRepository;
-        private readonly IEmployeeRepository _employeeRepository;
-
-        public EngineerController(IEngineerRepository engineerRepository, IEmployeeRepository employeeRepository)
+     
+        public EngineerController(IEngineerRepository engineerRepository)
         {
             _engineerRepository = engineerRepository;
-            _employeeRepository = employeeRepository;
         }
 
         [HttpGet]
@@ -31,7 +29,6 @@ namespace Amigo.BAU.API.Controllers
 
             return Ok(engineers);
         }
-        [Authorize]
         [HttpGet]
         [Route("GetNamed")]
         public ActionResult<IEnumerable<ShiftWorker>> GetNamedEngineers()
