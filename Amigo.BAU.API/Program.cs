@@ -15,11 +15,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton(typeof(IDateTimeProvider), typeof(DateTimeProvider));
 
-var connectionString = builder.Configuration.GetConnectionString("LaptopConnection");
-
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddTransient<IDbConnection>(p => new SqlConnection(connectionString));
 builder.Services.AddScoped(typeof(IEngineerRepository), typeof(EngineerRepository));
 builder.Services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
+builder.Services.AddScoped(typeof(ISupportWheelOfFateService), typeof(SupportWheelOfFateService));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

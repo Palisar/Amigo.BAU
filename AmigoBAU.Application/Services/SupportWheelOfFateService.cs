@@ -10,7 +10,7 @@ using Amigo.BAU.Repository.EngineerRepository;
 
 namespace Amigo.BAU.Application.Services
 {
-    public class SupportWheelOfFateService
+    public class SupportWheelOfFateService : ISupportWheelOfFateService
     {
         private static Random random = new();
         private readonly IDateTimeProvider _date;
@@ -23,7 +23,7 @@ namespace Amigo.BAU.Application.Services
             _date = date;
             _repository = repository;
         }
-        public async Task<IEnumerable<ShiftWorker>> WhoGoesToday(int numberOfShiftWorkers)
+        public IEnumerable<ShiftWorker> WhoGoesToday(int numberOfShiftWorkers)
         {
             if (today.Date == _date.GetDay())
             {
@@ -32,12 +32,12 @@ namespace Amigo.BAU.Application.Services
             today = _date.GetDay();
 
             // if day has not yet passed the just return the current list of employees
-            var engineeers = _repository.GetNamedEngineers();
+            var engineers = _repository.GetNamedEngineers();
             //gets a list of workers who did work yesterday
-            var whoWorked = engineeers.Where(shiftWorker => shiftWorker.LastShift == DateTimeOffset.UtcNow.AddDays(-1));
+            var whoWorked = engineers.Where(shiftWorker => shiftWorker.LastShift == DateTimeOffset.UtcNow.AddDays(-1));
 
             //gets a list of workers who did not work
-            var repo = engineeers.Where(employee => employee.LastShift != DateTimeOffset.UtcNow.AddDays(-1));
+            var repo = engineers.Where(employee => employee.LastShift != DateTimeOffset.UtcNow.AddDays(-1));
 
             //check for anyone who might not have worked yet
             var whosUp = repo.Where(x => x.ShiftCount < 2);
@@ -65,18 +65,18 @@ namespace Amigo.BAU.Application.Services
                 var engineerToUpdate = new Engineer
                 {
                     EngineerId = employee.EngineerId,
+                    ShiftCount = employee.ShiftCount == 0 ? 1 : employee.ShiftCount++,
                 };
-                if (employee.FirstShift is null)
+                if (employee.FirstShift == null)
                 {
                     engineerToUpdate.FirstShift = _date.GetDay();
                 }
                 engineerToUpdate.LastShift = _date.GetDay();
-                employee.ShiftCount++;
                 _repository.Update(engineerToUpdate, engineerToUpdate.EngineerId);
                 todaysEmployees[i] = employee;
             }
-
-            await WorkerCycleCheck(whoWorked);
+            
+            //await WorkerCycleCheck(whoWorked); need to make this its own method
             return todaysEmployees;
         }
     }

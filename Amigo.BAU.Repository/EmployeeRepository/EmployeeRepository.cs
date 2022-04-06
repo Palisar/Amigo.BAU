@@ -29,7 +29,7 @@ namespace Amigo.BAU.Repository.EmployeeRepository
             return entity;
         }
 
-        public async Task Update(Employee entity, int id)
+        public void Update(Employee entity, int id)
         {
             var task =  _db.ExecuteAsync("UPDATE Employees SET Name = @Name, Email = @Email WHERE EmployeeId = @id", entity);
             

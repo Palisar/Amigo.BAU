@@ -1,11 +1,20 @@
-﻿using FluentAssertions;
+﻿
 using System;
+using System.Data.SqlClient;
 using Amigo.BAU.Persistance.Models;
+using Amigo.BAU.Repository.EngineerRepository;
 
 namespace Amigo.BAU.Repository.Tests
 {
     public class EngineerRepoTests
     {
+        IEngineerRepository sut;
+
+        public EngineerRepoTests()
+        {
+            this.sut = new EngineerRepository.EngineerRepository(new SqlConnection("Data Source=DESKTOP-PALISAR\\SQLEXPRESS;Initial Catalog=AmigoDb;Trusted_Connection=True;"));
+        }
+
         [Fact]
         public void Add_Returns_Engineer()
         {
@@ -18,10 +27,8 @@ namespace Amigo.BAU.Repository.Tests
                 ShiftCount = 2,
                 EmployeeId = 1
             };
-            var repo = new EngineerRepository.EngineerRepository();
             //Act
-
-            var expected = repo.Add(engineer);
+            var expected = sut.Add(engineer);
             //Assert
             expected.Should().Be(engineer);
         }
@@ -29,9 +36,9 @@ namespace Amigo.BAU.Repository.Tests
         [Fact]
         public void GetById_Retuns_EmplyeeModel()
         {
-            var repo = new EngineerRepository.EngineerRepository();
+           
 
-            var expected = repo.GetById(0);
+            var expected = sut.GetById(0);
 
             expected.EmployeeId.Should().Be(1);
             expected.ShiftCount.Should().Be(2);

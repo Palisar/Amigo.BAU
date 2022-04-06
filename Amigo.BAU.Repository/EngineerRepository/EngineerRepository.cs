@@ -31,13 +31,14 @@ namespace Amigo.BAU.Repository.EngineerRepository
         }
         public Engineer Add(Engineer entity)
         {
-            _db.Execute("INSERT INTO Engineers (EngineerId, FirstShift, LastShift, ShiftCount, EmployeeId) VALUES (@EngineerId, @FirstShift, @LastShift, @ShiftCount, @EmployeeId)", entity);
+            entity.EngineerId = _db.QueryFirstAsync("SELECT MAX(EngineerId) FROM Engineers").Result + 1;
+            _db.Execute("INSERT INTO Engineers (EngineerId, EmployeeId) VALUES (@EngineerId, @EmployeeId)", entity);
             return entity;
         }
 
         public void Update(Engineer entity, int id)
         {
-            _db.Execute("UPDATE Engineers SET EngineerId = @EngineerId, FirstShift = @FirstShift, LastShift = @LastShift, ShiftCount = @ShiftCount, EmployeeId = @EmployeeId WHERE EngineerId = @id", entity);
+            _db.ExecuteAsync("UPDATE Engineers SET EngineerId = @EngineerId, FirstShift = @FirstShift, LastShift = @LastShift, ShiftCount = @ShiftCount, EmployeeId = @EmployeeId WHERE EngineerId = @id", entity); 
         }
         public void Delete(Engineer entity)
         {

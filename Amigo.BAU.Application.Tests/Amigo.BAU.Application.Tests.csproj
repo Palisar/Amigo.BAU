@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AmigoBAU.Application\Amigo.BAU.Application.csproj" />
-    <ProjectReference Include="..\EmployeeWheelOfFortune.Console\EmployeeWheelOfFortune.Console.csproj" />
   </ItemGroup>
 
 </Project>

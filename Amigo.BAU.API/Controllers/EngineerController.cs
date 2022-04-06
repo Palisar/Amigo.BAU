@@ -40,6 +40,18 @@ namespace Amigo.BAU.API.Controllers
             }
             return Ok(engineers);
         }
+
+        [HttpPost]
+        [Route("Add")]
+        public ActionResult<Engineer> AddEngineer(Engineer engineer)
+        {
+            var result = _engineerRepository.Add(engineer);
+            if (result is null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
+        }
     }
 }
 // dont forget to move this logic into the service layer and call abstactions of those services
