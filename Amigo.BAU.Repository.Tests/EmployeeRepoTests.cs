@@ -1,4 +1,5 @@
-﻿using Amigo.BAU.Persistance.Models;
+﻿using System.Data.SqlClient;
+using Amigo.BAU.Persistance.Models;
 using Amigo.BAU.Repository.EmployeeRepository;
 using FluentAssertions;
 
@@ -17,7 +18,7 @@ namespace Amigo.BAU.Repository.Tests
                 Email = "palisar@hotmail.co.uk"
             };
 
-            var repo = new EmployeeRepository.EmployeeRepository();
+            var repo = new EmployeeRepository.EmployeeRepository(new SqlConnection("Data Source=DESKTOP-88PT757\\SQLEXPRESS;Initial Catalog=AmigoDb;Trusted_Connection=True;"));
             //Act
             var expected = repo.Add(employee);
 

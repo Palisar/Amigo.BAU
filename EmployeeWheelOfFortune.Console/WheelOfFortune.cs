@@ -13,9 +13,9 @@
         /// <summary>
         /// This method will spin the wheel of fortune and return a number of random employees
         /// </summary>
-        /// <param name="numberOfShiftWorkers">The number of emploees required</param>
+        /// <param name="numberOfShiftWorkers">The number of employees required</param>
         /// <returns>An Enumerable of Employees</returns>
-        public IEnumerable<Employee> WhoGoesToday(int numberOfShiftWorkers)
+        public async Task<IEnumerable<Employee>> WhoGoesToday(int numberOfShiftWorkers)
         {
             // if day has not yet passed the just return the current list of employees
 
@@ -50,11 +50,11 @@
                 }
                 employee.LastShift = DateTimeOffset.UtcNow.Date;
                 employee.ShiftCount++;
-                _employeeRepository.UpdateEmployee(employee);
+                await _employeeRepository.UpdateEmployee(employee);
                 todaysEmployees[i] = employee;
             }
 
-            WorkerCycleCheck(whoWorked);
+            await WorkerCycleCheck(whoWorked);
             return todaysEmployees;
         }
 
@@ -68,7 +68,7 @@
                     employee.ShiftCount = 0;
                     employee.FirstShift = null;
                     employee.LastShift = null;
-                    _employeeRepository.UpdateEmployee(employee);
+                    await _employeeRepository.UpdateEmployee(employee);
                 }
             }
         }
