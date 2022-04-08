@@ -18,9 +18,8 @@ builder.Services.AddTransient<IDbConnection>(p => new SqlConnection(connectionSt
 
 builder.Services.AddSingleton(typeof(IDateTimeProvider), typeof(DateTimeProvider));
 builder.Services.AddSingleton(typeof(ISupportTeam), typeof(SupportTeamService));
-builder.Services.AddScoped(typeof(IEngineerRepository), typeof(InMemoryEngineerRepository));
-
-    builder.Services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
+builder.Services.AddScoped(typeof(IEngineerRepository), typeof(InMemoryEngineerRepository)); 
+builder.Services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
 builder.Services.AddScoped(typeof(ISupportWheelOfFate), typeof(SupportWheelOfFateService));
 var app = builder.Build();
 

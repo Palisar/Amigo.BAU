@@ -31,7 +31,7 @@ namespace Amigo.BAU.Application.Services
             // if day has not yet passed the just return the current list of employees
             var engineers = _repository.GetNamedEngineers();
             //gets a list of workers who did work yesterday
-            var whoWorked = engineers.Where(shiftWorker => shiftWorker.LastShift == DateTimeOffset.UtcNow.AddDays(-1));
+            var whoWorked = engineers.Where(shiftWorker => shiftWorker.LastShift == DateTimeOffset.UtcNow.AddDays(-1).Date);
 
             //gets a list of workers who did not work
             var repo = engineers.Where(employee => employee.LastShift != DateTimeOffset.UtcNow.AddDays(-1));
@@ -62,7 +62,7 @@ namespace Amigo.BAU.Application.Services
                 var engineerToUpdate = new Engineer
                 {
                     EngineerId = employee.EngineerId,
-                    ShiftCount = employee.ShiftCount == null ? 1 : employee.ShiftCount++,
+                    ShiftCount = employee.ShiftCount == null ? 1 : employee.ShiftCount+1,
                 };
                 //if (employee.FirstShift == null)
                 //{
