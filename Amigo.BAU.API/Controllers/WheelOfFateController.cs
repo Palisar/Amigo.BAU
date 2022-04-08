@@ -9,16 +9,16 @@ namespace Amigo.BAU.API.Controllers
     [Route("api/[controller]")]
     public class WheelOfFateController : ControllerBase
     {
-        private readonly ISupportWheelOfFateService _wheelOfFate;
+        private readonly ISupportWheelOfFate _wheelOfFate;
 
-        public WheelOfFateController(ISupportWheelOfFateService wheelOfFate )
+        public WheelOfFateController(ISupportWheelOfFate wheelOfFate )
         {
             _wheelOfFate = wheelOfFate;
         }
         [HttpGet]
-        public IActionResult WheelOfFate(int staffNeeded)
+        public async Task<IActionResult> WheelOfFate()
         {
-            var shiftWorkers = _wheelOfFate.WhoGoesToday(staffNeeded);
+            var shiftWorkers = await _wheelOfFate.WhoGoesToday();
             return Ok(shiftWorkers);
         }
     }
