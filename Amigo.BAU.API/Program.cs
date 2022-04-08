@@ -13,13 +13,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton(typeof(IDateTimeProvider), typeof(DateTimeProvider));
-
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = builder.Configuration.GetConnectionString("LaptopConnection");
 builder.Services.AddTransient<IDbConnection>(p => new SqlConnection(connectionString));
-builder.Services.AddScoped(typeof(IEngineerRepository), typeof(EngineerRepository));
-builder.Services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
-builder.Services.AddScoped(typeof(ISupportWheelOfFateService), typeof(SupportWheelOfFateService));
+
+builder.Services.AddSingleton(typeof(IDateTimeProvider), typeof(DateTimeProvider));
+builder.Services.AddSingleton(typeof(ISupportTeam), typeof(SupportTeamService));
+builder.Services.AddScoped(typeof(IEngineerRepository), typeof(InMemoryEngineerRepository));
+
+    builder.Services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
+builder.Services.AddScoped(typeof(ISupportWheelOfFate), typeof(SupportWheelOfFateService));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
