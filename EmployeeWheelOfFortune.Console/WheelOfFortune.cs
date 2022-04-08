@@ -3,7 +3,7 @@
     public class WheelOfFortune
     {
         private readonly IEmployeeRepository _employeeRepository;
-        private static Random random = new();
+        private readonly static Random random = new();
         //private readonly IDateTimeProvider _dateTime;   <--- add this to the real class   and replace everywhere that calls for DateTimeOffset to _dateTime
 
         public WheelOfFortune(IEmployeeRepository employeeRepository)

@@ -91,10 +91,7 @@
 
         }
 
-        public Employee GetEmployeeById(int id)
-        {
-            return employees.FirstOrDefault(e => e.Id == id);
-        }
+        public Employee GetEmployeeById(int id) => employees.FirstOrDefault(e => e.Id == id);
 
         public void AddEmployee(Employee employee)
         {
