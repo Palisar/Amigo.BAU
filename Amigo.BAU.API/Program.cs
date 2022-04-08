@@ -22,10 +22,10 @@ builder.Services.AddTransient<DbConnection>(p => new SqlConnection(connectionStr
 
 builder.Services.AddSingleton(typeof(IDateTimeProvider), typeof(DateTimeProvider));
 builder.Services.AddSingleton(typeof(ISupportTeam), typeof(SupportTeamService));
-builder.Services.AddScoped(typeof(IEngineerRepository), typeof(InMemoryEngineerRepository)); 
-builder.Services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
+builder.Services.AddScoped(typeof(IEngineerRepository), typeof(EngineerRepository));
+builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 builder.Services.AddScoped(typeof(ISupportWheelOfFate), typeof(SupportWheelOfFateService));
-builder.Services.AddSingleton(typeof(IUnitOfWork), typeof(UnitOfWork));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
