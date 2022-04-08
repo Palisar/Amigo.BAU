@@ -16,8 +16,8 @@ namespace Amigo.BAU.Repository.EngineerRepository
             {
                 Name = "Paul",
                 EngineerId = 1,
-                FirstShift = DateTimeOffset.UtcNow.AddDays(-3),
-                LastShift = DateTimeOffset.UtcNow.AddDays(-3),
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-3).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-3).Date,
                 ShiftCount = 1
             },
             new ShiftWorker
@@ -32,40 +32,40 @@ namespace Amigo.BAU.Repository.EngineerRepository
             {
                 Name = "Phil",
                 EngineerId = 3,
-                FirstShift = DateTimeOffset.UtcNow.AddDays(-6),
-                LastShift = DateTimeOffset.UtcNow.AddDays(-1),
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-6).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-1).Date,
                 ShiftCount = 2
             },
             new ShiftWorker
             {
                 Name = "Rob",
                 EngineerId = 4,
-                FirstShift = DateTimeOffset.UtcNow.AddDays(-1),
-                LastShift = DateTimeOffset.UtcNow.AddDays(-1),
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-1).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-1).Date,
                 ShiftCount = 1
             },
             new ShiftWorker
             {
                 Name = "Anne",
                 EngineerId = 5,
-                FirstShift = DateTimeOffset.UtcNow.AddDays(-14),
-                LastShift = DateTimeOffset.UtcNow.AddDays(-3),
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-14).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-3).Date,
                 ShiftCount = 2
             },
             new ShiftWorker
             {
                 Name = "Marlon",
                 EngineerId = 6,
-                FirstShift = DateTimeOffset.UtcNow.AddDays(-13),
-                LastShift = DateTimeOffset.UtcNow.AddDays(-4),
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-13).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-4).Date,
                 ShiftCount = 2
             },
             new ShiftWorker
             {
                 Name = "Elan",
                 EngineerId = 7,
-                FirstShift = DateTimeOffset.UtcNow.AddDays(-12),
-                LastShift = DateTimeOffset.UtcNow.AddDays(-7),
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-12).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-7).Date,
                 ShiftCount = 2
             },
             new ShiftWorker
@@ -80,15 +80,15 @@ namespace Amigo.BAU.Repository.EngineerRepository
             {
                 Name = "Puca",
                 EngineerId = 9,
-                FirstShift = DateTimeOffset.UtcNow.AddDays(-7),
-                LastShift = DateTimeOffset.UtcNow.AddDays(-4),
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-7).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-4).Date,
                 ShiftCount = 2
             }, new ShiftWorker
             {
                 Name = "Manx",
                 EngineerId = 10,
-                FirstShift = DateTimeOffset.UtcNow.AddDays(-4),
-                LastShift = DateTimeOffset.UtcNow.AddDays(-4),
+                FirstShift = DateTimeOffset.UtcNow.AddDays(-4).Date,
+                LastShift = DateTimeOffset.UtcNow.AddDays(-4).Date,
                 ShiftCount = 1
             }
         };
