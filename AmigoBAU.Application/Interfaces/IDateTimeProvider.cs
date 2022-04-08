@@ -2,7 +2,7 @@
 {
     public interface IDateTimeProvider
     {
-        public DateTimeOffset GetDay();
+        DateTimeOffset GetDay();
         bool DayChanged { get; }
     }
 }
