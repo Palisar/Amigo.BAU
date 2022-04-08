@@ -2,20 +2,21 @@
 using Amigo.BAU.Persistance.QueryModels;
 using Dapper;
 using System.Data;
+using System.Data.Common;
 
 namespace Amigo.BAU.Repository.EngineerRepository
 {
-    public class EngineerRepository : IEngineerRepository
+    public class EngineerRepository : IEngineerRepository, IDisposable
     {
         private readonly IDbConnection _db;
-        public EngineerRepository(IDbConnection db)
+        public EngineerRepository(DbConnection db)
         {
             _db = db;
         }
         //TODO : Add unit of work pattern
         public IEnumerable<Engineer> GetAll()
         {
-            return _db.Query<Engineer>("SELECT * FROM Engineers");
+           return _db.Query<Engineer>("SELECT * FROM Engineers");
         }
 
         public IEnumerable<ShiftWorker> GetNamedEngineers()
@@ -46,6 +47,11 @@ namespace Amigo.BAU.Repository.EngineerRepository
         public void Delete(int id)
         {
             _db.Execute("DELETE FROM Engineers WHERE EngineerId = @id", new { id });
+        }
+
+        public void Dispose()
+        {
+            _db.Dispose(); 
         }
     }
 }
