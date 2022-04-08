@@ -7,8 +7,8 @@ namespace Amigo.BAU.Application.Services
         public DateTimeOffset TodaysDate { get; private set; }
         public bool DayChanged { get; private set; }
         public DateTimeProvider()
-        {
-            TodaysDate = DateTimeOffset.UtcNow.Date;
+        {// instanciate the class with the previous date so it will run the first time it is called
+            TodaysDate = DateTimeOffset.UtcNow.AddDays(-1).Date;
         }
         private void NextDay()
         {
