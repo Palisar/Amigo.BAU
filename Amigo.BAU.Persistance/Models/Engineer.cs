@@ -9,6 +9,6 @@ namespace Amigo.BAU.Persistance.Models
         public DateTimeOffset? LastShift { get; set; }
         public int ShiftCount { get; set; }
         [Required]
-        public int EmployeeId { get; init; }
+        public int EmployeeId { get; set; }
     }
 }
