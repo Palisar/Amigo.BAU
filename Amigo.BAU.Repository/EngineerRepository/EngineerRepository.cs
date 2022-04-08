@@ -3,17 +3,16 @@ using Amigo.BAU.Persistance.QueryModels;
 using Dapper;
 using System.Data;
 
-
 namespace Amigo.BAU.Repository.EngineerRepository
 {
     public class EngineerRepository : IEngineerRepository
     {
-        private IDbConnection _db;
+        private readonly IDbConnection _db;
         public EngineerRepository(IDbConnection db)
         {
             _db = db;
         }
-
+        //TODO : Add unit of work pattern
         public IEnumerable<Engineer> GetAll()
         {
             return _db.Query<Engineer>("SELECT * FROM Engineers");
