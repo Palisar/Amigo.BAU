@@ -32,6 +32,7 @@ namespace Amigo.BAU.Repository.UnitOfWork
 
         public async Task BeginAsync()
         {
+            await _connection.OpenAsync();
             _transaction =  await _connection.BeginTransactionAsync();
         }
 

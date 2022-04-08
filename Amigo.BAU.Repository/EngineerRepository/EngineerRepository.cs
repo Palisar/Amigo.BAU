@@ -38,7 +38,17 @@ namespace Amigo.BAU.Repository.EngineerRepository
 
         public void Update(Engineer entity, int id)
         {
-            _db.ExecuteAsync("UPDATE Engineers SET EngineerId = @EngineerId, FirstShift = @FirstShift, LastShift = @LastShift, ShiftCount = @ShiftCount, EmployeeId = @EmployeeId WHERE EngineerId = @id", entity); 
+            var query =
+                @"UPDATE Engineers SET EngineerId = @EngineerId, FirstShift = @FirstShift, LastShift = @LastShift, ShiftCount = @ShiftCount, @EmployeeId = EmployeeId WHERE EngineerId = @EngineerId";
+            _db.Execute(query, entity);
+            //{
+            //    entity.EngineerId,
+            //    entity.FirstShift,
+            //    entity.LastShift,
+            //    entity.ShiftCount,
+            //    entity.EmployeeId
+            //}
+
         }
         public void Delete(Engineer entity)
         {

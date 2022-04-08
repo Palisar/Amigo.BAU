@@ -2,6 +2,7 @@
 using Amigo.BAU.Persistance.Models;
 using Amigo.BAU.Persistance.QueryModels;
 using Amigo.BAU.Repository.EngineerRepository;
+using Amigo.BAU.Repository.Interfaces;
 
 namespace Amigo.BAU.Application.Services
 {
@@ -10,14 +11,15 @@ namespace Amigo.BAU.Application.Services
         private readonly Random random = new();
         private readonly IDateTimeProvider _date;
         private readonly ISupportTeam _team;
-        private readonly IEngineerRepository _repository;
+        //private readonly IEngineerRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly int numberOfShiftWorkers;
 
-        public SupportWheelOfFateService(IDateTimeProvider date, IEngineerRepository repository, ISupportTeam team)
+        public SupportWheelOfFateService(IDateTimeProvider date, ISupportTeam team, IUnitOfWork unitOfWork)
         {
             _date = date;
-            _repository = repository;
             _team = team;
+            _unitOfWork = unitOfWork;
             numberOfShiftWorkers = 2; // change this to set the number of engineers selected for support
         }
         public async Task<IEnumerable<ShiftWorker>> WhoGoesToday()
@@ -29,7 +31,9 @@ namespace Amigo.BAU.Application.Services
             }
 
             // if day has not yet passed the just return the current list of employees
-            var engineers = _repository.GetNamedEngineers();
+            await _unitOfWork.BeginAsync();
+            var engineers = _unitOfWork.EngineerRepository.GetNamedEngineers();
+
             //gets a list of workers who did work yesterday
             var whoWorked = engineers.Where(shiftWorker => shiftWorker.LastShift == DateTimeOffset.UtcNow.AddDays(-1).Date);
 
@@ -75,12 +79,14 @@ namespace Amigo.BAU.Application.Services
                 engineerToUpdate.FirstShift = employee.FirstShift == null ? _date.GetDay() : employee.FirstShift;
 
                 engineerToUpdate.LastShift = _date.GetDay();
-                _repository.Update(engineerToUpdate, engineerToUpdate.EngineerId);
+                _unitOfWork.EngineerRepository.Update(engineerToUpdate, engineerToUpdate.EngineerId);
                 todaysEmployees[i] = employee;
             }
 
+            await _unitOfWork.CommitAsync();
             _team.Staff = todaysEmployees;
             //await WorkerCycleCheck(todaysEmployees); TODO : need to make this its own method that takes in the whole repo after everything else is done and resets anyone whos first shift was 2 weeks ago
+            _unitOfWork.Dispose();
             return todaysEmployees;
         }
     }

@@ -1,14 +1,15 @@
 ﻿using Amigo.BAU.Persistance.Models;
 using Dapper;
 using System.Data;
+using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Amigo.BAU.Repository.EmployeeRepository
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        private readonly IDbConnection _db;
-        public EmployeeRepository(IDbConnection db)
+        private readonly DbConnection _db;
+        public EmployeeRepository(DbConnection db)
         {
             _db = db;
         }
