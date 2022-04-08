@@ -31,8 +31,7 @@ namespace Amigo.BAU.Repository.EmployeeRepository
 
         public void Update(Employee entity, int id)
         {
-            var task =  _db.ExecuteAsync("UPDATE Employees SET Name = @Name, Email = @Email WHERE EmployeeId = @id", entity);
-            
+             _db.ExecuteAsync("UPDATE Employees SET Name = @Name, Email = @Email WHERE EmployeeId = @id", entity);
         }
 
         public void Delete(Employee entity)
@@ -44,6 +43,5 @@ namespace Amigo.BAU.Repository.EmployeeRepository
         {
             _db.Execute("DELETE FROM Employees WHERE EmployeeId = @id", new { id });
         }
-
     }
 }
