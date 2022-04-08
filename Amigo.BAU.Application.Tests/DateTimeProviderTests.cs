@@ -5,40 +5,33 @@ namespace Amigo.BAU.Application.Tests
 {
     public class DateTimeProviderTests
     {
-        private static DateTimeOffset _date = DateTimeOffset.UtcNow;
+        DateTimeProvider sut = new();
+        
         [Fact]
-        public void WhenCalenderIsCreated_DateShouldBeToday()
+        public void WhenServiceIsCreated_DateShouldBeYesterday()
         {
-            DateTimeProvider sut = new DateTimeProvider();
+            
             var result = sut.TodaysDate.Date;
-            result.Should().Be(DateTimeOffset.UtcNow.Date);
+            result.Should().Be(DateTimeOffset.UtcNow.AddDays(-1).Date);
         }
 
         [Fact]
         public void WhenDayChanges_Then_DayUpdatesReturnsNow()
         {
-            // Arrange
-            _date = DateTimeOffset.MinValue;
-            DateTimeProvider sut = new DateTimeProvider();
-
-            //Act
-            var result = sut.GetDay();
-
-            //Assert
-            result.Should().Be(DateTimeOffset.UtcNow.Date);
+            sut.GetDay();
+            sut.DayChanged.Should().BeTrue();
         }
 
         [Fact]
-        public void IfDayDoesNotChange_Then_ReturnNow()
+        public void IfDayDoesNotChange_Then_DayChangeIsFalse()
         {
-            // Arrange
-            DateTimeProvider sut = new DateTimeProvider();
-
-            //Act
+            
+            sut.GetDay();
+            sut.DayChanged.Should().BeTrue();
             var result = sut.GetDay();
-
-            //Assert
+            
             result.Should().Be(DateTimeOffset.UtcNow.Date);
+            sut.DayChanged.Should().BeFalse();
         }
     }
 }

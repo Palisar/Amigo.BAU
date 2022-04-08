@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeWheelOfFortune.Console", "EmployeeWheelOfFortune.Console\EmployeeWheelOfFortune.Console.csproj", "{66293F7F-10E3-49E7-8739-45AC142A8D8D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amigo.BAU.Application", "AmigoBAU.Application\Amigo.BAU.Application.csproj", "{68078B00-5C34-470A-A726-531B35B4546C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Amigo.BAU", "Amigo.BAU", "{428CE7C1-A514-4D09-B6B8-1799295B36CF}"
@@ -21,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amigo.BAU.Repository", "Ami
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amigo.BAU.Repository.Tests", "Amigo.BAU.Repository.Tests\Amigo.BAU.Repository.Tests.csproj", "{FBD54581-CF49-4969-A6D0-7B0D88FC2D4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amigo.BAU.Persistance", "Amigo.BAU.Persistance\Amigo.BAU.Persistance.csproj", "{3472BB55-4C54-40FE-A731-62F739CEAFB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amigo.BAU.Persistance", "Amigo.BAU.Persistance\Amigo.BAU.Persistance.csproj", "{3472BB55-4C54-40FE-A731-62F739CEAFB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{66293F7F-10E3-49E7-8739-45AC142A8D8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66293F7F-10E3-49E7-8739-45AC142A8D8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66293F7F-10E3-49E7-8739-45AC142A8D8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66293F7F-10E3-49E7-8739-45AC142A8D8D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{68078B00-5C34-470A-A726-531B35B4546C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{68078B00-5C34-470A-A726-531B35B4546C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68078B00-5C34-470A-A726-531B35B4546C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -66,7 +60,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{66293F7F-10E3-49E7-8739-45AC142A8D8D} = {428CE7C1-A514-4D09-B6B8-1799295B36CF}
 		{68078B00-5C34-470A-A726-531B35B4546C} = {428CE7C1-A514-4D09-B6B8-1799295B36CF}
 		{7BA24AB0-9DD3-48C5-B07A-12C764E1A107} = {29FAB953-BEF4-4F6A-8222-D8819ECD511E}
 		{3403E162-8205-4BFF-B0BD-3D6743D76121} = {428CE7C1-A514-4D09-B6B8-1799295B36CF}

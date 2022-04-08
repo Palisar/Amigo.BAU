@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -15,22 +16,26 @@ namespace AmigoBAU.Tests.ConsoleTests
     {
         
         private static IDateTimeProvider _dateTimeProvider = new DateTimeProvider();
-        private static IDbConnection dbConnection = new SqlConnection("Data Source=DESKTOP-PALISAR\\SQLEXPRESS;Initial Catalog=AmigoDb;Trusted_Connection=True;");
-        private static IEngineerRepository _engineerRepository = new EngineerRepository(dbConnection);
-        private SupportWheelOfFateService sut = new SupportWheelOfFateService(_dateTimeProvider, _engineerRepository);
+        private static IEngineerRepository _engineerRepository = new InMemoryEngineerRepository();
+        private static ISupportTeam _team = new SupportTeamService(); 
+        private SupportWheelOfFateService sut = new(_dateTimeProvider, _engineerRepository, _team);
         
         [Fact]
-        public void WheelOfFortune_Returns_IEnumerableOfShiftWorkers()
+        public void WheelOfFortune_Returns_2ShiftWorkers()
         {
-            var data = _engineerRepository.GetNamedEngineers();
-            data.Should().BeOfType<IEnumerable<ShiftWorker>>();
-
+            var workers = sut.WhoGoesToday();
+            workers.Result.Should().HaveCount(2);
+            workers.Result.Should().AllBeOfType(typeof(ShiftWorker));   
         }
 
         [Fact]
-        public void IfEmployeeWorkedPreviousDay_Then_EmployeeWontBeAdded()
+        public void ShiftWorkersLastShift_ShouldBe_Today()
         {
-
+            var workers = sut.WhoGoesToday();
+            foreach (var shiftWorker in workers.Result)
+            {
+                shiftWorker.LastShift.Should().BeExactly(DateTimeOffset.UtcNow.Date);
+            }
         }
     }
 }
