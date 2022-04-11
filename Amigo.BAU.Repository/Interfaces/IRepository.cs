@@ -2,9 +2,9 @@
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        TEntity GetById(int id);
-        TEntity Add(TEntity entity);
-        void Update(TEntity entity, int id);
-        void Delete(int id);
+        Task<TEntity> GetById(int id);
+        Task<TEntity>Add(TEntity entity);
+        Task Update(TEntity entity, int id);
+        Task Delete(int id);
     }
 }
