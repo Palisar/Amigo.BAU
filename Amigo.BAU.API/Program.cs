@@ -1,30 +1,34 @@
 using Amigo.BAU.Application.Interfaces;
 using Amigo.BAU.Application.Services;
-using Amigo.BAU.Repository.EmployeeRepository;
 using Amigo.BAU.Repository.EngineerRepository;
-using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using Amigo.BAU.API.Extensions;
 using Amigo.BAU.Repository.Interfaces;
 using Amigo.BAU.Repository.UnitOfWork;
 
+string _CORS_DEV = "cors_dev";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(_CORS_DEV, policy =>
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            );
+    
+});
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("LaptopConnection");
 builder.Services.AddTransient<DbConnection>(p => new SqlConnection(connectionString));
-//builder.Services.AddTransient<IDbConnection>(p => new SqlConnection(connectionString));
 
-builder.Services.AddSingleton(typeof(IDateTimeProvider), typeof(DateTimeProvider));
-builder.Services.AddSingleton(typeof(ISupportTeam), typeof(SupportTeamService));
-builder.Services.AddScoped(typeof(IEngineerRepository), typeof(EngineerRepository));
-builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
-builder.Services.AddScoped(typeof(ISupportWheelOfFate), typeof(SupportWheelOfFateService));
+builder.Services.AddInfrastructure();
 
 var app = builder.Build();
 
@@ -37,6 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(_CORS_DEV);
 app.UseAuthorization();
 
 app.MapControllers();
