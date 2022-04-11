@@ -18,8 +18,23 @@ namespace Amigo.BAU.API.Controllers
         [HttpGet]
         public async Task<IActionResult> WheelOfFate()
         {
-            var shiftWorkers = await _wheelOfFate.WhoGoesToday();
-            return Ok(shiftWorkers);
+            var workers = await _wheelOfFate.WhoGoesToday();
+            
+            if (workers is null)
+            {
+                return BadRequest();
+            }
+
+            List<ShiftWorkerResponse> responses = new();
+            foreach (var shiftWorkerResponse in workers)
+            {
+               responses.Add(new ShiftWorkerResponse
+               {
+                   Name = shiftWorkerResponse.Name,
+                   Email = shiftWorkerResponse.Email
+               }); 
+            }
+            return Ok(responses);
         }
     }
 }
