@@ -9,6 +9,6 @@ namespace Amigo.BAU.Application.Interfaces
 {
     public interface ISupportTeam
     {
-        IEnumerable<ShiftWorker> Staff { get; set; }
+        IEnumerable<ShiftWorker>? Staff { get; set; }
     }
 }
