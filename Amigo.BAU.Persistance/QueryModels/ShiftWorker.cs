@@ -3,6 +3,7 @@
     public class ShiftWorker
     {
         public string Name { get; set; }
+        public string Email { get; set; }
         public int EngineerId { get; set; }
         public DateTimeOffset? FirstShift { get; set; }
         public DateTimeOffset? LastShift { get; set; }
