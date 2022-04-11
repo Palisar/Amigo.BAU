@@ -1,0 +1,68 @@
+﻿@page "/bau"
+@using Amigo.BAU.Persistance.QueryModels
+@using Microsoft.Win32.SafeHandles
+@inject IAmigoBAUClient _client
+
+<PageTitle>BAU</PageTitle>
+
+
+<h3>Welcome to the support wheel of fate</h3>
+
+<div class="card">
+    <div class="card-body">
+        @if (Workers == null)
+        {
+            <h2>Click the button to see who goes today</h2>
+            <div class="btn">
+                <button type="button" onclick="@(() => GetWorkers())">Who's Up </button>
+                <p class="alert-info">@errorMessage</p>
+            </div>
+        }
+        else
+        {
+            <div class="text-info">
+
+                <h2>Today's staff will be:</h2>
+
+                <div class="card-group">
+                    @foreach (var worker in Workers)
+                    {
+                        <div class="card">
+                            <div class="card-body">
+                                <h3>Name : @worker.Name</h3>
+                                <h2>Email: @worker.Email</h2>
+                            </div>
+                            
+                        </div>
+
+                    }
+                </div>
+                
+
+            </div>
+        }
+    </div>
+</div>
+@code {
+    private bool Clicked { get; set; } = false;
+    private string errorMessage = string.Empty;
+    private ShiftWorkerResponse[]? Workers { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Workers = null;
+    }
+
+    private async void GetWorkers()
+    {
+        Clicked = true;
+        var response = await _client.WheelOfFate();
+        if (response.Content is null)
+        {
+            errorMessage = "There was an issue retrieving the data";
+            return;
+        }
+        Workers = response.Content.ToArray();
+        this.StateHasChanged();
+    }
+}
