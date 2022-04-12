@@ -7,5 +7,8 @@ namespace Amigo.BAU.Persistance.Interfaces
     {
         [Get("/api/WheelOfFate")]
         Task<ApiResponse<IEnumerable<ShiftWorkerResponse>>> WheelOfFate();
+
+        [Put("/api/Engineer/updateEngineers")]
+        Task<ApiResponse<HttpResponseMessage>> UpdateEngineers();
     }
 }
