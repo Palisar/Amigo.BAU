@@ -1,9 +1,9 @@
 ﻿using Amigo.BAU.Application.Interfaces;
 using Amigo.BAU.Persistance.Models;
-using Amigo.BAU.Persistance.QueryModels;
 using Amigo.BAU.Repository.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Mapster;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Amigo.BAU.API.Controllers
 {
@@ -21,22 +21,31 @@ namespace Amigo.BAU.API.Controllers
         }
 
         [HttpPut]
-        [Route("/updateEngineers")]
+        [Route("updateEngineers")]
         [ProducesResponseType(200)]
-        public async Task UpdateEngineers()
+        [ProducesResponseType(400)]
+        public async Task<HttpResponseMessage> UpdateEngineers()
         {
+            if (_team.Staff is null)
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                return response;
+            }
+
+            _team.ConfirmTodaysStaff();
             var staffToUpdate = _team.Staff.ToArray();
             var mappedStaff = new Engineer[2];
 
-            for (int i = 0; i < staffToUpdate.Count(); i++)
+            for (int i = 0; i < staffToUpdate.Length; i++)
             {
                 mappedStaff[i] = staffToUpdate[i].Adapt<Engineer>();
             }
-            
+
             await _unitOfWork.BeginAsync();
             await _unitOfWork.EngineerRepository.UpdateAll(mappedStaff);
             await _unitOfWork.CommitAsync();
             _unitOfWork.Dispose();
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }
