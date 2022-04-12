@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Amigo.BAU.Repository.EngineerRepository;
 using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amigo.BAU.Repository.EngineerRepository;
 
 namespace Amigo.BAU.Repository.Interfaces
 {

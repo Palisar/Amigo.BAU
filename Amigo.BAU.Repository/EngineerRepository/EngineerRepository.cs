@@ -16,7 +16,7 @@ namespace Amigo.BAU.Repository.EngineerRepository
 
         public async Task<IEnumerable<Engineer>> GetAll()
         {
-           return await _db.QueryAsync<Engineer>("SELECT * FROM Engineers");
+            return await _db.QueryAsync<Engineer>("SELECT * FROM Engineers");
         }
 
         public async Task<IEnumerable<ShiftWorker>> GetNamedEngineers()
@@ -38,11 +38,9 @@ namespace Amigo.BAU.Repository.EngineerRepository
 
         public async Task UpdateAll(IEnumerable<Engineer> workers)
         {
-           var query =
-                @"UPDATE Engineers SET EngineerId = @EngineerId, FirstShift = @FirstShift, LastShift = @LastShift, ShiftCount = @ShiftCount, @EmployeeId = EmployeeId WHERE EngineerId = @EngineerId";
             foreach (var shiftWorker in workers)
             {
-                await _db.ExecuteAsync(query, shiftWorker);
+                await Update(shiftWorker, shiftWorker.EngineerId);
             }
         }
         public async Task Update(Engineer entity, int id)
@@ -61,7 +59,7 @@ namespace Amigo.BAU.Repository.EngineerRepository
         }
         public void Dispose()
         {
-            _db.Dispose(); 
+            _db.Dispose();
         }
     }
 }

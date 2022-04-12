@@ -1,8 +1,7 @@
 ﻿
-using System;
-using System.Data.SqlClient;
 using Amigo.BAU.Persistance.Models;
 using Amigo.BAU.Repository.EngineerRepository;
+using System;
 
 namespace Amigo.BAU.Repository.Tests
 {
@@ -12,7 +11,7 @@ namespace Amigo.BAU.Repository.Tests
 
         public EngineerRepoTests()
         {
-            this.sut = new EngineerRepository.EngineerRepository(new SqlConnection("Data Source=DESKTOP-PALISAR\\SQLEXPRESS;Initial Catalog=AmigoDb;Trusted_Connection=True;"));
+            sut = new InMemoryEngineerRepository();
         }
 
         [Fact]
@@ -31,14 +30,13 @@ namespace Amigo.BAU.Repository.Tests
             var expected = sut.Add(engineer);
             //Assert
             expected.Should().Be(engineer);
+            expected.Result.EmployeeId.Should().Be(10);
         }
 
         [Fact]
-        public void GetById_Retuns_EmplyeeModel()
+        public async void GetById_Retuns_EmplyeeModel()
         {
-           
-
-            var expected = sut.GetById(0);
+            var expected = await sut.GetById(0);
 
             expected.EmployeeId.Should().Be(1);
             expected.ShiftCount.Should().Be(2);

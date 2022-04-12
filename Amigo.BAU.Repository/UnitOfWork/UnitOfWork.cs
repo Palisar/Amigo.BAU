@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Amigo.BAU.Repository.EngineerRepository;
+using Amigo.BAU.Repository.Interfaces;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amigo.BAU.Repository.EngineerRepository;
-using Amigo.BAU.Repository.Interfaces;
 
 namespace Amigo.BAU.Repository.UnitOfWork
 {
@@ -33,7 +28,7 @@ namespace Amigo.BAU.Repository.UnitOfWork
         public async Task BeginAsync()
         {
             await _connection.OpenAsync();
-            _transaction =  await _connection.BeginTransactionAsync();
+            _transaction = await _connection.BeginTransactionAsync();
         }
 
         public void Commit()

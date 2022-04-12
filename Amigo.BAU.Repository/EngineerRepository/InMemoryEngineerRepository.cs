@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amigo.BAU.Persistance.Models;
+﻿using Amigo.BAU.Persistance.Models;
 using Amigo.BAU.Persistance.QueryModels;
 
 namespace Amigo.BAU.Repository.EngineerRepository
@@ -92,7 +87,8 @@ namespace Amigo.BAU.Repository.EngineerRepository
                 FirstShift = DateTimeOffset.UtcNow.AddDays(-7).Date,
                 LastShift = DateTimeOffset.UtcNow.AddDays(-4).Date,
                 ShiftCount = 2
-            }, new ShiftWorker
+            },
+            new ShiftWorker
             {
                 Name = "Manx",
                 Email = "Manx@mail.com",
@@ -103,7 +99,7 @@ namespace Amigo.BAU.Repository.EngineerRepository
             }
         };
 
-        public async Task<Engineer>GetById(int id)
+        public async Task<Engineer> GetById(int id)
         {
             var engineer = workers.FirstOrDefault(w => w.EngineerId == id);
             return new Engineer
@@ -136,7 +132,7 @@ namespace Amigo.BAU.Repository.EngineerRepository
             workers.Remove(engineer);
         }
 
-        public async Task<IEnumerable<Engineer>>GetAll()
+        public async Task<IEnumerable<Engineer>> GetAll()
         {
             var engineers = new List<Engineer>();
             foreach (var shiftWorker in workers)
