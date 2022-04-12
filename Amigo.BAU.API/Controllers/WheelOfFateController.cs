@@ -1,6 +1,6 @@
 ﻿using Amigo.BAU.Application.Services;
 using Amigo.BAU.Persistance.QueryModels;
-using Amigo.BAU.Repository.EngineerRepository;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Amigo.BAU.API.Controllers
@@ -11,15 +11,15 @@ namespace Amigo.BAU.API.Controllers
     {
         private readonly ISupportWheelOfFate _wheelOfFate;
 
-        public WheelOfFateController(ISupportWheelOfFate wheelOfFate )
+        public WheelOfFateController(ISupportWheelOfFate wheelOfFate)
         {
             _wheelOfFate = wheelOfFate;
         }
         [HttpGet]
-        public async Task<IActionResult> WheelOfFate()
+        public async Task<ActionResult> WheelOfFate()
         {
             var workers = await _wheelOfFate.WhoGoesToday();
-            
+
             if (workers is null)
             {
                 return BadRequest();
@@ -28,11 +28,8 @@ namespace Amigo.BAU.API.Controllers
             List<ShiftWorkerResponse> responses = new();
             foreach (var shiftWorkerResponse in workers)
             {
-               responses.Add(new ShiftWorkerResponse
-               {
-                   Name = shiftWorkerResponse.Name,
-                   Email = shiftWorkerResponse.Email
-               }); 
+                responses.Add(shiftWorkerResponse.Adapt<ShiftWorkerResponse>());
+
             }
             return Ok(responses);
         }
