@@ -6,7 +6,8 @@ namespace Amigo.BAU.Repository.EngineerRepository
 {
     public interface IEngineerRepository : IRepository<Engineer>
     {
-        IEnumerable<Engineer> GetAll();
-        IEnumerable<ShiftWorker> GetNamedEngineers();
+        Task<IEnumerable<Engineer>> GetAll();
+        Task<IEnumerable<ShiftWorker>> GetNamedEngineers();
+        Task UpdateAll(IEnumerable<Engineer> workers);
     }
 }

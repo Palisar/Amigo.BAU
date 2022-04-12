@@ -1,87 +1,86 @@
 ﻿using Amigo.BAU.Application.Interfaces;
-using Amigo.BAU.Persistance.Models;
 using Amigo.BAU.Persistance.QueryModels;
-using Amigo.BAU.Repository.EngineerRepository;
+using Amigo.BAU.Repository.Interfaces;
 
 namespace Amigo.BAU.Application.Services
 {
     public class SupportWheelOfFateService : ISupportWheelOfFate
     {
-        private readonly Random random = new();
+        private static Random random = new();
         private readonly IDateTimeProvider _date;
         private readonly ISupportTeam _team;
-        private readonly IEngineerRepository _repository;
-        private readonly int numberOfShiftWorkers;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly int _numberOfShiftWorkers;
 
-        public SupportWheelOfFateService(IDateTimeProvider date, IEngineerRepository repository, ISupportTeam team)
+        public SupportWheelOfFateService(IDateTimeProvider date, ISupportTeam team, IUnitOfWork unitOfWork)
         {
             _date = date;
-            _repository = repository;
             _team = team;
-            numberOfShiftWorkers = 2; // change this to set the number of engineers selected for support
+            _unitOfWork = unitOfWork;
+            _numberOfShiftWorkers = 2; // change this to set the number of engineers selected for support
         }
         public async Task<IEnumerable<ShiftWorker>> WhoGoesToday()
         {
             _date.GetDay();
-            if (!_date.DayChanged)
+            if (_date.DayChanged)
+            {
+                _team.ResetStaff();
+            }
+            else if (_team.IsConfirmedToday)
             {
                 return _team.Staff;
             }
 
-            // if day has not yet passed the just return the current list of employees
-            var engineers = _repository.GetNamedEngineers();
-            //gets a list of workers who did work yesterday
-            var whoWorked = engineers.Where(shiftWorker => shiftWorker.LastShift == DateTimeOffset.UtcNow.AddDays(-1).Date);
+            await _unitOfWork.BeginAsync();
 
-            //gets a list of workers who did not work
-            var repo = engineers.Where(employee => employee.LastShift != DateTimeOffset.UtcNow.AddDays(-1));
+            var whosUp = await GetAvailableShiftWorkersAsync();
 
-            //check for anyone who might not have worked yet
-            var whosUp = repo.Where(x => x.ShiftCount < 2);
+            var todaysEmployees = new ShiftWorker[_numberOfShiftWorkers];
 
-            if (whosUp.ToArray().Length <= 0)
-            {
-                whosUp = repo;
-            }
-
-            //creates output array 
-            var todaysEmployees = new ShiftWorker[numberOfShiftWorkers];
-
-            // TODO : use a rules engine pattern for each employee to see if they can be assigned as well once you have randomly selected them
-            for (int i = 0; i < numberOfShiftWorkers; i++)
+            for (int i = 0; i < _numberOfShiftWorkers; i++)
             {
                 var employeeIndex = random.Next(0, whosUp.Count());
-
-                if (todaysEmployees.Contains(whosUp.ElementAt(employeeIndex)))
+                var employee = whosUp.ElementAt(employeeIndex);
+                if (todaysEmployees.Contains(employee))
                 {
                     i--;
                     continue;
                 }
-
-                var employee = whosUp.ElementAt(employeeIndex);
-                var engineerToUpdate = new Engineer
-                {
-                    EngineerId = employee.EngineerId,
-                    ShiftCount = employee.ShiftCount == null ? 1 : employee.ShiftCount+1,
-                };
-                //if (employee.FirstShift == null)
-                //{
-                //    engineerToUpdate.FirstShift = _date.GetDay();
-                //}
-                //else
-                //{
-                //    engineerToUpdate.FirstShift = employee.FirstShift;
-                //}
-                engineerToUpdate.FirstShift = employee.FirstShift == null ? _date.GetDay() : employee.FirstShift;
-
-                engineerToUpdate.LastShift = _date.GetDay();
-                _repository.Update(engineerToUpdate, engineerToUpdate.EngineerId);
                 todaysEmployees[i] = employee;
             }
 
             _team.Staff = todaysEmployees;
-            //await WorkerCycleCheck(todaysEmployees); TODO : need to make this its own method that takes in the whole repo after everything else is done and resets anyone whos first shift was 2 weeks ago
+
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.Dispose();
             return todaysEmployees;
+        }
+
+        private async Task<IEnumerable<ShiftWorker>> GetAvailableShiftWorkersAsync()
+        {
+            await ResetEngineers();
+            var engineers = await _unitOfWork.EngineerRepository.GetNamedEngineers();
+
+            var repo = engineers.Where(employee => employee.LastShift != DateTimeOffset.UtcNow.AddDays(-1));
+
+            var haventDone2 = repo.Where(x => x.ShiftCount < 2);
+
+            return haventDone2.ToArray().Length <= 0 ? repo : haventDone2;
+        }
+
+        private async Task ResetEngineers()
+        {
+            var workers = await _unitOfWork.EngineerRepository.GetAll();
+            var over2weeks = workers.Where(w => w.FirstShift > _date.GetDay().AddDays(-14).Date).ToArray();
+
+            foreach (var engineer in over2weeks)
+            {
+                engineer.FirstShift = null;
+                engineer.LastShift = null;
+                engineer.ShiftCount = 0;
+            }
+
+            await _unitOfWork.EngineerRepository.UpdateAll(over2weeks);
         }
     }
 }

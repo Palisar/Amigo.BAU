@@ -25,7 +25,7 @@ namespace Amigo.BAU.Application.Services
             {
                 DayChanged = false;
             }
-                
+
             return TodaysDate.Date;
         }
     }

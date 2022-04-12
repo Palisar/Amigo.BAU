@@ -1,57 +1,51 @@
-﻿using Amigo.BAU.Persistance.Models;
-using Amigo.BAU.Persistance.QueryModels;
-using Amigo.BAU.Repository.EmployeeRepository;
-using Amigo.BAU.Repository.EngineerRepository;
-using Microsoft.AspNetCore.Authorization;
+﻿using Amigo.BAU.Application.Interfaces;
+using Amigo.BAU.Persistance.Models;
+using Amigo.BAU.Repository.Interfaces;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Amigo.BAU.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class EngineerController : ControllerBase
+    public class EngineerController : Controller
     {
-        private readonly IEngineerRepository _engineerRepository;
-     
-        public EngineerController(IEngineerRepository engineerRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISupportTeam _team;
+
+        public EngineerController(IUnitOfWork unitOfWork, ISupportTeam team)
         {
-            _engineerRepository = engineerRepository;
+            _unitOfWork = unitOfWork;
+            _team = team;
         }
 
-        [HttpGet]
-        [Route("GetAll")]
-        public ActionResult<IEnumerable<Engineer>> GetEngineers()
+        [HttpPut]
+        [Route("updateEngineers")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<HttpResponseMessage> UpdateEngineers()
         {
-            var engineers = _engineerRepository.GetAll();
-
-            if (engineers is null)
-                return BadRequest();
-
-            return Ok(engineers);
-        }
-        [HttpGet]
-        [Route("GetNamed")]
-        public ActionResult<IEnumerable<ShiftWorker>> GetNamedEngineers()
-        {
-            var engineers = _engineerRepository.GetNamedEngineers();
-            if (engineers is null)
+            if (_team.Staff is null)
             {
-                return BadRequest();
+                var response = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                return response;
             }
-            return Ok(engineers);
-        }
 
-        [HttpPost]
-        [Route("Add")]
-        public ActionResult<Engineer> AddEngineer(Engineer engineer)
-        {
-            var result = _engineerRepository.Add(engineer);
-            if (result is null)
+            _team.ConfirmTodaysStaff();
+            var staffToUpdate = _team.Staff.ToArray();
+            var mappedStaff = new Engineer[2];
+
+            for (int i = 0; i < staffToUpdate.Length; i++)
             {
-                return BadRequest();
+                mappedStaff[i] = staffToUpdate[i].Adapt<Engineer>();
             }
-            return Ok(result);
+
+            await _unitOfWork.BeginAsync();
+            await _unitOfWork.EngineerRepository.UpdateAll(mappedStaff);
+            await _unitOfWork.CommitAsync();
+            _unitOfWork.Dispose();
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }
-// dont forget to move this logic into the service layer and call abstactions of those services
