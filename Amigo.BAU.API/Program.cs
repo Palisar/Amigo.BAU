@@ -1,11 +1,6 @@
-using Amigo.BAU.Application.Interfaces;
-using Amigo.BAU.Application.Services;
-using Amigo.BAU.Repository.EngineerRepository;
+using Amigo.BAU.API.Extensions;
 using System.Data.Common;
 using System.Data.SqlClient;
-using Amigo.BAU.API.Extensions;
-using Amigo.BAU.Repository.Interfaces;
-using Amigo.BAU.Repository.UnitOfWork;
 
 string _CORS_DEV = "cors_dev";
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +16,7 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .AllowAnyHeader()
             );
-    
+
 });
 builder.Services.AddSwaggerGen();
 
