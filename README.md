@@ -1,28 +1,28 @@
 # **AmigoBAU**
 
-##To run the application:
+## To run the application:
 1. Setup enviroment to run mutliple projects, run the API first, then Client.
 2. Go to the program.cs file of the Amigo.BAU.Client blazor app and set the AmigoApiUri to whatever the local host your API is running on.
 3. Run.
 
 
-##The Task
+## The Task
 
-##Summary
+## Summary
 Design and build the “Support Wheel of Fate”
 
-##Background
+## Background
 All Softworks engineers take it in turns to support the business for half a day at a time. This is
 affectionately known as BAU.
 Currently, Softworks has no tool which decides who is doing BAU and when, all rotas are
 created and maintained by hand.
 
-##Task
+## Task
 Your task is to design and build an online “Support Wheel of Fate”. This should select two
 engineers at random to both complete a half day of support each. For the purposes of this
 task you are free to assume that we have 10 engineers.
 
-##Business Rules
+## Business Rules
 There are some rules and these are liable to change in the future:
 1. An engineer can do at most one half day shift in a day.
 2. An engineer cannot have half day shifts on consecutive days.
@@ -37,7 +37,7 @@ It is also important that you document your decisions as you will be expected to
 your approach.
 Rules
 
-The rules are as follows:
+** The rules are as follows: **
 1. There is no time limit
 2. You are free to use the internet for research, inspiration and help
 3. The solution should be built using C#
