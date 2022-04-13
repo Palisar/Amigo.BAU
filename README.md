@@ -6,7 +6,7 @@
 3. Run.
 
 
-## The Task
+
 
 ## Summary
 Design and build the “Support Wheel of Fate”
