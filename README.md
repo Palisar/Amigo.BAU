@@ -9,13 +9,18 @@ To run the application:
 The Task
 
 Summary
+
 Design and build the “Support Wheel of Fate”
+
 Background
+
 All Softworks engineers take it in turns to support the business for half a day at a time. This is
 affectionately known as BAU.
 Currently, Softworks has no tool which decides who is doing BAU and when, all rotas are
 created and maintained by hand.
+
 Task
+
 Your task is to design and build an online “Support Wheel of Fate”. This should select two
 engineers at random to both complete a half day of support each. For the purposes of this
 task you are free to assume that we have 10 engineers.
