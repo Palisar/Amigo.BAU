@@ -31,8 +31,8 @@ period.
 
 Deliverables
 At the end of the task, the following must be included:
-● A Presentation Layer
-● An API
+ ● A Presentation Layer
+ ● An API
 It is also important that you document your decisions as you will be expected to talk through
 your approach.
 Rules
